@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/menu_to_do_list"
+        android:enabled="true"
+        android:icon="@mipmap/message"
+        app:showAsAction="ifRoom"
+        android:title="清单" />
+    <item
+        android:id="@+id/menu_calendar"
+        android:enabled="true"
+        android:icon="@mipmap/icon_contacts"
+        app:showAsAction="ifRoom"
+        android:title="日历" />
+    <item
+        android:id="@+id/menu_me"
+        android:enabled="true"
+        android:icon="@mipmap/me"
+        app:showAsAction="ifRoom"
+        android:title="我" />
+</menu>
