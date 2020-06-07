@@ -32,7 +32,7 @@ public class CourseDataSource {
         }
     }
 
-    public static void fetchNewCourses(Context context) {
+    public static void fetchCourses(Context context) {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("http://application.jjaychen.me/")
                 .addConverterFactory(GsonConverterFactory.create())
