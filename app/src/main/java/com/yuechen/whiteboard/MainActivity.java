@@ -28,6 +28,8 @@ public class MainActivity extends AppCompatActivity {
         initData();
         initBottomNavigation();
 
+        setFragmentPosition(0);
+
     }
 
     public void initData() {
@@ -45,12 +47,15 @@ public class MainActivity extends AppCompatActivity {
             switch (item.getItemId()) {
                 case R.id.menu_to_do_list:
                     setFragmentPosition(0);
+                    toolbar.setTitle("任务清单");
                     break;
                 case R.id.menu_calendar:
                     setFragmentPosition(1);
+                    toolbar.setTitle("课程日历");
                     break;
                 case R.id.menu_me:
                     setFragmentPosition(2);
+                    toolbar.setTitle("个人账号");
                     break;
                 default:
                     break;

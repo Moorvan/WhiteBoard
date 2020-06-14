@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">WhiteBoard</string>
-
+    <string name="account_title_name">BlackBoard登录信息</string>
+    <string name="hint_login_username">请输入学生ID</string>
+    <string name="hint_login_password">输入密码</string>
+    <string name="login">保存</string>
 </resources>
