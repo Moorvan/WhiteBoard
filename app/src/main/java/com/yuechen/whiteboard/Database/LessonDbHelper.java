@@ -34,7 +34,8 @@ public class LessonDbHelper extends SQLiteOpenHelper {
 
     private static final String SQL_CREATE_ENTRIES =
             "CREATE TABLE " + LessonEntry.TABLE_NAME + " (" +
-                    LessonEntry.COLUMN_NAME_COURSE_ID + " TEXT PRIMARY KEY," +
+                    LessonEntry._ID + " INTEGER PRIMARY KEY," +
+                    LessonEntry.COLUMN_NAME_COURSE_ID + " TEXT," +
                     LessonEntry.COLUMN_NAME_COURSE_NAME + " TEXT," +
                     LessonEntry.COLUMN_NAME_LOCATION + " TEXT," +
                     LessonEntry.COLUMN_NAME_COURSE_INSTRUCTOR + " TEXT," +
