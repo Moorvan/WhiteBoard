@@ -1,6 +1,7 @@
 package com.yuechen.whiteboard.DataSource;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.yuechen.whiteboard.Database.LessonDbHelper;
 import com.yuechen.whiteboard.Model.Lesson;
@@ -70,9 +71,11 @@ public class LessonDataSource {
             @Override
             public void onFailure(Call<ResultEntity<ArrayList<Lesson>>> call, Throwable t) {
                 System.out.println(t.toString());
+                Log.d("lessons", "FAIL");
             }
         };
 
         call.enqueue(callback);
+        Log.d("lessons", lessons.toString());
     }
 }

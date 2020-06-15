@@ -6,6 +6,7 @@ import android.os.Bundle;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,10 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.haibin.calendarview.*;
+import com.yuechen.whiteboard.DataSource.LessonDataSource;
+import com.yuechen.whiteboard.DataSource.UserInfoDataSource;
+import com.yuechen.whiteboard.Database.LessonDbHelper;
+import com.yuechen.whiteboard.Model.Lesson;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -134,7 +139,14 @@ public class CalendarFragment extends Fragment
 //                getSchemeCalendar(year, month, 27, 0xFF13acf0, "多"));
         //此方法在巨大的数据量上不影响遍历性能，推荐使用
         mCalendarView.setSchemeDate(map);
-
+        LessonDbHelper helper = new LessonDbHelper(getContext());
+        helper.clearLessons();
+        UserInfoDataSource.username = "10175101152";
+        UserInfoDataSource.password = "Thwf1858";
+        UserInfoDataSource.year = 2019;
+        UserInfoDataSource.semesterIndex = 1;
+        LessonDataSource.fetchLessons(getContext());
+        Log.d("lessons", String.valueOf(LessonDataSource.lessons.size()));
     }
 
     private Calendar getSchemeCalendar(int year, int month, int day, int color, String text) {
