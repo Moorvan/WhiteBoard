@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
         initData();
         initBottomNavigation();
 
-        pref = getSharedPreferences("msgIsSave", MODE_PRIVATE);
+        pref = getSharedPreferences("msgSave", MODE_PRIVATE);
         boolean flag = pref.getBoolean("flag", false);
         if(!flag) {
             setFragmentPosition(2);

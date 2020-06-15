@@ -16,7 +16,6 @@ import android.text.method.PasswordTransformationMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -150,7 +149,9 @@ public class AccountFragment extends Fragment implements View.OnClickListener{
     private void saveMsg() {
         Toast.makeText(getActivity(), mStudentIDEditText.getText().toString() + " " + mPasswordEditText.getText().toString(), Toast.LENGTH_SHORT).show();
 
-        editor = getActivity().getSharedPreferences("msgIsSave", Context.MODE_PRIVATE).edit();
+        editor = getActivity().getSharedPreferences("msgSave", Context.MODE_PRIVATE).edit();
+        editor.putString("id", mStudentIDEditText.getText().toString());
+        editor.putString("password", mPasswordEditText.getText().toString());
         editor.putBoolean("flag", true);
         editor.apply();
     }
