@@ -3,6 +3,7 @@ package com.yuechen.whiteboard;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.FragmentTransaction;
@@ -12,6 +13,9 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
+
+    private SharedPreferences pref;
+
 
     private Toolbar toolbar;
     private BottomNavigationView bottomNavigationView;
@@ -27,6 +31,14 @@ public class MainActivity extends AppCompatActivity {
         toolbar = findViewById(R.id.toolbar);
         initData();
         initBottomNavigation();
+
+        pref = getSharedPreferences("msgSave", MODE_PRIVATE);
+        boolean flag = pref.getBoolean("flag", false);
+        if(!flag) {
+            setFragmentPosition(2);
+        } else {
+            setFragmentPosition(0);
+        }
 
     }
 
@@ -45,12 +57,15 @@ public class MainActivity extends AppCompatActivity {
             switch (item.getItemId()) {
                 case R.id.menu_to_do_list:
                     setFragmentPosition(0);
+                    toolbar.setTitle("任务清单");
                     break;
                 case R.id.menu_calendar:
                     setFragmentPosition(1);
+                    toolbar.setTitle("课程日历");
                     break;
                 case R.id.menu_me:
                     setFragmentPosition(2);
+                    toolbar.setTitle("个人账号");
                     break;
                 default:
                     break;

@@ -10,7 +10,12 @@
 
     <color name="black_2c">#2c2c2c</color>
     <color name="white">#ffffff</color>
-    <color name="theme">#03A9F4</color>
+    <color name="theme">#000000</color>
     <color name="bottom_navigation_normal">#CCCCCC</color>
+
+
+    <color name="black_color">#000000</color>
+    <color name="white_color">#ffffff</color>
+    <color name="grey_color">#555555</color>
 
 </resources>
