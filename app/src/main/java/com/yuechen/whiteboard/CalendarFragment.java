@@ -19,6 +19,9 @@ import com.yuechen.whiteboard.DataSource.UserInfoDataSource;
 import com.yuechen.whiteboard.Database.LessonDbHelper;
 import com.yuechen.whiteboard.Model.Lesson;
 
+import java.time.Duration;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -139,14 +142,20 @@ public class CalendarFragment extends Fragment
 //                getSchemeCalendar(year, month, 27, 0xFF13acf0, "多"));
         //此方法在巨大的数据量上不影响遍历性能，推荐使用
         mCalendarView.setSchemeDate(map);
-        LessonDbHelper helper = new LessonDbHelper(getContext());
-        helper.clearLessons();
+
         UserInfoDataSource.username = "10175101152";
         UserInfoDataSource.password = "Thwf1858";
         UserInfoDataSource.year = 2019;
         UserInfoDataSource.semesterIndex = 1;
-        LessonDataSource.fetchLessons(getContext());
-        Log.d("lessons", String.valueOf(LessonDataSource.lessons.size()));
+        // 判断需不需要从数据库读
+        if (LessonDataSource.isEmpty()) {
+            LessonDataSource.readLessons(getContext());
+            Log.d("lessonsRead", String.valueOf(LessonDataSource.count()));
+        }
+        // 若数据库中没有，fetch
+        if (LessonDataSource.isEmpty()) {
+            LessonDataSource.fetchLessons(getContext());
+        }
     }
 
     private Calendar getSchemeCalendar(int year, int month, int day, int color, String text) {
@@ -182,6 +191,5 @@ public class CalendarFragment extends Fragment
     @Override
     public void onYearChange(int year) {
         mTextMonthDay.setText(String.valueOf(year));
-
     }
 }

@@ -11,4 +11,20 @@ public class Lesson {
     public int endTimeOffset;
     public String startDateTime;
     public String endDateTime;
+
+    @Override
+    public String toString() {
+        return "Lesson{" +
+                "courseID='" + courseID + '\'' +
+                ", courseName='" + courseName + '\'' +
+                ", location='" + location + '\'' +
+                ", courseInstructor='" + courseInstructor + '\'' +
+                ", weekOffset=" + weekOffset +
+                ", dayOffset=" + dayOffset +
+                ", startTimeOffset=" + startTimeOffset +
+                ", endTimeOffset=" + endTimeOffset +
+                ", startDateTime='" + startDateTime + '\'' +
+                ", endDateTime='" + endDateTime + '\'' +
+                '}';
+    }
 }
