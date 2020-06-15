@@ -3,6 +3,7 @@ package com.yuechen.whiteboard;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.FragmentTransaction;
@@ -12,6 +13,9 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
+
+    private SharedPreferences pref;
+
 
     private Toolbar toolbar;
     private BottomNavigationView bottomNavigationView;
@@ -28,7 +32,13 @@ public class MainActivity extends AppCompatActivity {
         initData();
         initBottomNavigation();
 
-        setFragmentPosition(0);
+        pref = getSharedPreferences("msgIsSave", MODE_PRIVATE);
+        boolean flag = pref.getBoolean("flag", false);
+        if(!flag) {
+            setFragmentPosition(2);
+        } else {
+            setFragmentPosition(0);
+        }
 
     }
 

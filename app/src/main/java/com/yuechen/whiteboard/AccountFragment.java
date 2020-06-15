@@ -1,6 +1,8 @@
 package com.yuechen.whiteboard;
 
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -19,6 +21,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.flod.loadingbutton.LoadingButton;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -30,7 +34,9 @@ public class AccountFragment extends Fragment implements View.OnClickListener{
     private ImageView mCleanIDImageView;
     private ImageView mCleanPasswordImageView;
     private ImageView mShowPasswordImageView;
-    private Button mSaveButton;
+    private LoadingButton mSaveButton;
+
+    private SharedPreferences.Editor editor;
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
@@ -38,6 +44,7 @@ public class AccountFragment extends Fragment implements View.OnClickListener{
 
         initView();
         initListener();
+
     }
 
     private void initView() {
@@ -118,7 +125,7 @@ public class AccountFragment extends Fragment implements View.OnClickListener{
                 mPasswordEditText.setText("");
                 break;
             case R.id.iv_show_pwd:
-                if (flag == true) {
+                if (flag) {
                     mPasswordEditText.setTransformationMethod(PasswordTransformationMethod.getInstance());
                     mShowPasswordImageView.setImageResource(R.drawable.ic_pass_gone);
                     flag = false;
@@ -132,8 +139,20 @@ public class AccountFragment extends Fragment implements View.OnClickListener{
                     mPasswordEditText.setSelection(pwd.length());
                 break;
             case R.id.btn_save:
-                Toast.makeText(getActivity(), mStudentIDEditText.getText().toString() + " " + mPasswordEditText.getText().toString(), Toast.LENGTH_SHORT).show();
+                mSaveButton.start();
+                saveMsg();
+//                mSaveButton.complete();
+//                mSaveButton.fail();
+                break;
         }
+    }
+
+    private void saveMsg() {
+        Toast.makeText(getActivity(), mStudentIDEditText.getText().toString() + " " + mPasswordEditText.getText().toString(), Toast.LENGTH_SHORT).show();
+
+        editor = getActivity().getSharedPreferences("msgIsSave", Context.MODE_PRIVATE).edit();
+        editor.putBoolean("flag", true);
+        editor.apply();
     }
 
 

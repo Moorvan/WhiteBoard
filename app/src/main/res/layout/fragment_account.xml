@@ -140,16 +140,38 @@
                 android:layout_height="0.5dp"
                 android:background="@color/grey_color" />
 
-            <Button
+<!--            <Button-->
+<!--                android:id="@+id/btn_save"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="45dp"-->
+<!--                android:layout_marginTop="21dp"-->
+<!--                android:background="@drawable/bg_btn_login_selected"-->
+<!--                android:text="@string/login"-->
+<!--                android:textAllCaps="false"-->
+<!--                android:textColor="@color/white_color"-->
+<!--                android:textSize="15sp" />-->
+            <com.flod.loadingbutton.LoadingButton
                 android:id="@+id/btn_save"
                 android:layout_width="match_parent"
-                android:layout_height="45dp"
-                android:layout_marginTop="21dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
+                android:layout_gravity="top|center_horizontal"
                 android:background="@drawable/bg_btn_login_selected"
+                android:drawablePadding="10dp"
+                android:gravity="center"
+                android:minHeight="45dp"
+                android:padding="8dp"
+
                 android:text="@string/login"
-                android:textAllCaps="false"
                 android:textColor="@color/white_color"
-                android:textSize="15sp" />
+                android:textSize="14sp"
+                app:enableShrink="true"
+
+                app:endCompleteDrawable="@drawable/ic_successful"
+                app:endFailDrawable="@drawable/ic_fail"
+                app:loadingDrawablePosition="Start"/>
+
+
         </LinearLayout>
     </LinearLayout>
 
