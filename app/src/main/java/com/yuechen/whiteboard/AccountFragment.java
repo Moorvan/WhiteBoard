@@ -21,12 +21,14 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.flod.loadingbutton.LoadingButton;
+import com.yuechen.whiteboard.Service.LoginService;
+import com.yuechen.whiteboard.Service.LoginServiceObserver;
 
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class AccountFragment extends Fragment implements View.OnClickListener{
+public class AccountFragment extends Fragment implements View.OnClickListener, LoginServiceObserver {
 
     private EditText mStudentIDEditText;
     private EditText mPasswordEditText;
@@ -140,20 +142,31 @@ public class AccountFragment extends Fragment implements View.OnClickListener{
             case R.id.btn_save:
                 mSaveButton.start();
                 saveMsg();
-//                mSaveButton.complete();
-//                mSaveButton.fail();
                 break;
         }
     }
 
     private void saveMsg() {
-        Toast.makeText(getActivity(), mStudentIDEditText.getText().toString() + " " + mPasswordEditText.getText().toString(), Toast.LENGTH_SHORT).show();
+        String username = mStudentIDEditText.getText().toString();
+        String password = mPasswordEditText.getText().toString();
+        LoginService.subscribe(this);
+        LoginService.loginVerify(username, password);
 
-        editor = getActivity().getSharedPreferences("msgSave", Context.MODE_PRIVATE).edit();
-        editor.putString("id", mStudentIDEditText.getText().toString());
-        editor.putString("password", mPasswordEditText.getText().toString());
-        editor.putBoolean("flag", true);
-        editor.apply();
+    }
+
+    @Override
+    public void notifyLoginVerifyResult(Boolean result, String message) {
+        if(result) {
+            mSaveButton.complete();
+            editor = getActivity().getSharedPreferences("msgSave", Context.MODE_PRIVATE).edit();
+            editor.putBoolean("flag", true);
+            editor.apply();
+        } else {
+            mSaveButton.fail();
+            editor = getActivity().getSharedPreferences("msgSave", Context.MODE_PRIVATE).edit();
+            editor.putBoolean("flag", false);
+            Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
+        }
     }
 
 

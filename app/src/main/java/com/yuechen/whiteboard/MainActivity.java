@@ -3,6 +3,7 @@ package com.yuechen.whiteboard;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
+import android.annotation.SuppressLint;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
@@ -27,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
     private ArrayList<Fragment> fragments;
     private int lastIndex;
 
+    @SuppressLint("ResourceType")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,10 +43,12 @@ public class MainActivity extends AppCompatActivity {
         initData();
         initBottomNavigation();
 
+
         pref = getSharedPreferences("msgSave", MODE_PRIVATE);
         boolean flag = pref.getBoolean("flag", false);
         if(!flag) {
             setFragmentPosition(2);
+            bottomNavigationView.getMenu().getItem(2).setChecked(true);
         } else {
             setFragmentPosition(0);
         }
