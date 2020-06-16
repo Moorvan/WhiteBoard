@@ -1,6 +1,7 @@
 package com.yuechen.whiteboard.DataSource;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.yuechen.whiteboard.Database.SemesterDateDbHelper;
 import com.yuechen.whiteboard.Network.EcnuNetworkService;
@@ -29,6 +30,7 @@ public class SemesterDateDataSource {
         SemesterDateDbHelper dbHelper = new SemesterDateDbHelper(context);
         semesterDates.clear();
         semesterDates = dbHelper.readSemesterDates();
+        Log.d("lessonsStart", String.valueOf(semesterDates.size()));
     }
 
     public static void fetchSemesterDates(Context context) {
@@ -58,6 +60,7 @@ public class SemesterDateDataSource {
                             observer.notifySemesterDatesUpdate();
                         }
                     }
+                    Log.d("lessonsStart", String.valueOf(semesterDates.size()));
                 }
             }
 
