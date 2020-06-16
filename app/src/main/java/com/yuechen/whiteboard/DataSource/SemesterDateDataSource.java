@@ -49,7 +49,9 @@ public class SemesterDateDataSource {
                     SemesterDateDbHelper dbHelper = new SemesterDateDbHelper(context);
                     if (fetchedSemesterDates.size() > 0) {
                         dbHelper.clearSemesterDates();
+                        
                         semesterDates.clear();
+                        semesterDates = fetchedSemesterDates;
 
                         dbHelper.insertSemesterDates(fetchedSemesterDates);
                         for (SemesterDateObserver observer : observers) {
