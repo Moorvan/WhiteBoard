@@ -8,13 +8,8 @@ import com.yuechen.whiteboard.Model.Lesson;
 import com.yuechen.whiteboard.Network.EcnuNetworkService;
 import com.yuechen.whiteboard.Network.ResultEntity;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Hashtable;
 import java.util.List;
-import java.util.Map;
-import java.util.WeakHashMap;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -118,7 +113,7 @@ public class LessonDataSource {
                     if (fetchedLessons.size() > 0) {
                         dbHelper.insertLessons(fetchedLessons);
                         for (LessonObserver observer : observers) {
-                            observer.notifyUpdate();
+                            observer.notifyLessonsUpdate();
                         }
                     }
 

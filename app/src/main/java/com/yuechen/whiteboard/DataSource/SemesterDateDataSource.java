@@ -55,7 +55,7 @@ public class SemesterDateDataSource {
 
                         dbHelper.insertSemesterDates(fetchedSemesterDates);
                         for (SemesterDateObserver observer : observers) {
-                            observer.notifyUpdate();
+                            observer.notifySemesterDatesUpdate();
                         }
                     }
                 }

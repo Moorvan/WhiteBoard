@@ -71,7 +71,7 @@ public class DeadlineDataSource {
 
                     if (newDeadlines.size() > 0) {
                         for (DeadlineObserver observer : observers) {
-                            observer.notifyInsert(newDeadlines);
+                            observer.notifyDeadlinesInsert(newDeadlines);
                         }
                     }
                 }

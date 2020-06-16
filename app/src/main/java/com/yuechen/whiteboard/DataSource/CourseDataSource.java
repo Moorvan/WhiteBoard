@@ -61,7 +61,7 @@ public class CourseDataSource {
                     if (fetchedCourses.size() > 0) {
                         dbHelper.insertCourses(fetchedCourses);
                         for (CourseObserver observer : observers) {
-                            observer.notifyUpdate(fetchedCourses);
+                            observer.notifyCoursesUpdate(fetchedCourses);
                         }
                     }
                 }
