@@ -15,12 +15,16 @@ import android.widget.TextView;
 
 import com.haibin.calendarview.*;
 import com.yuechen.whiteboard.DataSource.LessonDataSource;
+import com.yuechen.whiteboard.DataSource.SemesterDateDataSource;
 import com.yuechen.whiteboard.DataSource.UserInfoDataSource;
 import com.yuechen.whiteboard.Database.LessonDbHelper;
 import com.yuechen.whiteboard.Model.Lesson;
 
+import java.text.DateFormat;
+import java.time.DayOfWeek;
 import java.time.Duration;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.HashMap;
 import java.util.Map;
@@ -147,7 +151,7 @@ public class CalendarFragment extends Fragment
         UserInfoDataSource.setUsername("10175101152");
         UserInfoDataSource.setPassword("Thwf1858");
         UserInfoDataSource.setYear(2019);
-        UserInfoDataSource.setSemesterIndex(1);
+        UserInfoDataSource.setSemesterIndex(2);
         // 判断需不需要从数据库读
         if (LessonDataSource.isEmpty()) {
             LessonDataSource.readLessons(getContext());
@@ -156,6 +160,13 @@ public class CalendarFragment extends Fragment
         // 若数据库中没有，fetch
         if (LessonDataSource.isEmpty()) {
             LessonDataSource.fetchLessons(getContext());
+        }
+        if (SemesterDateDataSource.semesterDates.isEmpty()) {
+            SemesterDateDataSource.readSemesterDates(getContext());
+        }
+        if (SemesterDateDataSource.semesterDates.isEmpty()) {
+            SemesterDateDataSource.fetchSemesterDates(getContext());
+            SemesterDateDataSource.readSemesterDates(getContext());
         }
     }
 
@@ -187,6 +198,17 @@ public class CalendarFragment extends Fragment
         mTextYear.setText(String.valueOf(calendar.getYear()));
         mTextLunar.setText(calendar.getLunar());
         mYear = calendar.getYear();
+        String year = String.valueOf(UserInfoDataSource.getYear());
+        String semester = String.valueOf(UserInfoDataSource.getSemesterIndex());
+        LocalDate startDate = LocalDate.parse(SemesterDateDataSource.semesterDates.get(year).get(semester),
+                DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        LocalDate currentDate = LocalDate.of(mYear, calendar.getMonth(), calendar.getDay());
+        Log.d("lessonsDate1", startDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+        Log.d("lessonsDate2", currentDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+        long duration = ChronoUnit.DAYS.between(startDate, currentDate);
+        Log.d("lessonsDuration", String.valueOf(duration));
+        DayOfWeek week = currentDate.getDayOfWeek();
+        Log.d("lessons", LessonDataSource.lessonTable[(int) duration / 7][currentDate.getDayOfWeek().getValue() - 1].toString());
     }
 
     @Override
