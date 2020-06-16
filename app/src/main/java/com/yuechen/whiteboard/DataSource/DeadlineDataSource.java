@@ -48,8 +48,8 @@ public class DeadlineDataSource {
         long currentTimestamp = System.currentTimeMillis();
         long timeStampOneYearLater = currentTimestamp + 31536000000L; // 获取从现在起往后一年的时间的所有 Deadline
 
-        Call<ResultEntity<ArrayList<Deadline>>> call = ecnuNetworkService.getDeadlineList(UserInfoDataSource.username,
-                UserInfoDataSource.password,
+        Call<ResultEntity<ArrayList<Deadline>>> call = ecnuNetworkService.getDeadlineList(UserInfoDataSource.getUsername(),
+                UserInfoDataSource.getPassword(),
                 currentTimestamp,
                 timeStampOneYearLater);
 

@@ -13,6 +13,28 @@ import retrofit2.http.Query;
 
 public interface EcnuNetworkService {
     /**
+     * Get user's real name.
+     *
+     * @param username Username.
+     * @param password Password.
+     * @return
+     */
+    @GET("/ecnu-service/real-name")
+    Call<ResultEntity<String>> getRealName(@Query("username") String username,
+                                           @Query("password") String password);
+
+    /**
+     * Get user's real name.
+     *
+     * @param username Username.
+     * @param password Password.
+     * @return
+     */
+    @GET("/ecnu-service/login-verify")
+    Call<ResultEntity<Boolean>> loginVerify(@Query("username") String username,
+                                           @Query("password") String password);
+
+    /**
      * Get semester dates.
      *
      * @return

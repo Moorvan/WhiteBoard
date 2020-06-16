@@ -41,10 +41,10 @@ public class LessonDataSource {
 
         EcnuNetworkService ecnuNetworkService = retrofit.create(EcnuNetworkService.class);
 
-        Call<ResultEntity<ArrayList<Lesson>>> call = ecnuNetworkService.getLessonList(UserInfoDataSource.username,
-                UserInfoDataSource.password,
-                UserInfoDataSource.year,
-                UserInfoDataSource.semesterIndex);
+        Call<ResultEntity<ArrayList<Lesson>>> call = ecnuNetworkService.getLessonList(UserInfoDataSource.getUsername(),
+                UserInfoDataSource.getPassword(),
+                UserInfoDataSource.getYear(),
+                UserInfoDataSource.getSemesterIndex());
 
         Callback<ResultEntity<ArrayList<Lesson>>> callback = new Callback<ResultEntity<ArrayList<Lesson>>>() {
             @Override

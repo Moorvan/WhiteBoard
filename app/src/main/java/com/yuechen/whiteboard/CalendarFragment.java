@@ -141,10 +141,11 @@ public class CalendarFragment extends Fragment
         mCalendarView.setSchemeDate(map);
         LessonDbHelper helper = new LessonDbHelper(getContext());
         helper.clearLessons();
-        UserInfoDataSource.username = "10175101152";
-        UserInfoDataSource.password = "Thwf1858";
-        UserInfoDataSource.year = 2019;
-        UserInfoDataSource.semesterIndex = 1;
+        UserInfoDataSource.initialize(getContext());
+        UserInfoDataSource.setUsername("10175101152");
+        UserInfoDataSource.setPassword("Thwf1858");
+        UserInfoDataSource.setYear(2019);
+        UserInfoDataSource.setSemesterIndex(1);
         LessonDataSource.fetchLessons(getContext());
         Log.d("lessons", String.valueOf(LessonDataSource.lessons.size()));
     }

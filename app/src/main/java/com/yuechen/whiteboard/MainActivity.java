@@ -5,10 +5,14 @@ import androidx.fragment.app.Fragment;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
+
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.yuechen.whiteboard.DataSource.UserInfoDataSource;
+import com.yuechen.whiteboard.Service.LoginService;
 
 import java.util.ArrayList;
 
@@ -27,6 +31,11 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        UserInfoDataSource.initialize(getApplicationContext());
+        LoginService.loginVerify("10175101148", "密码");
+//        String username = UserInfoDataSource.getUsername();
+//        String password = UserInfoDataSource.getPassword();
 
         toolbar = findViewById(R.id.toolbar);
         initData();
