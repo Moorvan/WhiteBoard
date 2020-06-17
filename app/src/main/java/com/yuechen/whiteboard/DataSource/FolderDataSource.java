@@ -33,7 +33,6 @@ public class FolderDataSource {
                 return dbHelper.updateFolder(folder);
             }
         }
-
         return -1;
     }
 
