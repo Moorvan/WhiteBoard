@@ -42,19 +42,19 @@ public class InnerFoldersActivity extends AppCompatActivity {
     }
 
     private void initFolders() {
-        Folder folder1 = new Folder("语文", 1);
-        folderList.add(folder1);
-        Folder folder2 = new Folder("数学", 2);
-        folderList.add(folder2);
-        Folder folder3 = new Folder("英语", 3);
-        folderList.add(folder3);
-        Folder folder4 = new Folder("政治", 4);
-        folderList.add(folder4);
-        Folder folder5 = new Folder("历史", 5);
-        folderList.add(folder5);
-        Folder folder6 = new Folder("生物", 6);
-        folderList.add(folder6);
-        Folder folder7 = new Folder("物理", 7);
-        folderList.add(folder7);
+//        Folder folder1 = new Folder("语文", 1);
+//        folderList.add(folder1);
+//        Folder folder2 = new Folder("数学", 2);
+//        folderList.add(folder2);
+//        Folder folder3 = new Folder("英语", 3);
+//        folderList.add(folder3);
+//        Folder folder4 = new Folder("政治", 4);
+//        folderList.add(folder4);
+//        Folder folder5 = new Folder("历史", 5);
+//        folderList.add(folder5);
+//        Folder folder6 = new Folder("生物", 6);
+//        folderList.add(folder6);
+//        Folder folder7 = new Folder("物理", 7);
+//        folderList.add(folder7);
     }
 }

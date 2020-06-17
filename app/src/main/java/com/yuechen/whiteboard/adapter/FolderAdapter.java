@@ -61,14 +61,14 @@ public class FolderAdapter extends RecyclerView.Adapter<FolderAdapter.ViewHolder
             } else if(!isInner) {
                 Intent intent = new Intent(context, TodoListActivity.class);
                 Bundle bundle = new Bundle();
-                bundle.putInt("id", folder.getFolderId());
+                bundle.putLong("id", folder.getFolderId());
                 bundle.putBoolean("isLesson", false);
                 intent.putExtras(bundle);
                 context.startActivity(intent);
             } else {
                 Intent intent = new Intent(context, TodoListActivity.class);
                 Bundle bundle = new Bundle();
-                bundle.putInt("id", folder.getFolderId());
+                bundle.putLong("id", folder.getFolderId());
                 bundle.putBoolean("isLesson", true);
                 intent.putExtras(bundle);
                 context.startActivity(intent);

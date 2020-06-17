@@ -12,8 +12,10 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.yuechen.whiteboard.DataSource.DeadlineDataSource;
+import com.yuechen.whiteboard.DataSource.FolderDataSource;
 import com.yuechen.whiteboard.DataSource.UserInfoDataSource;
 import com.yuechen.whiteboard.Model.Deadline;
+import com.yuechen.whiteboard.Model.Folder;
 import com.yuechen.whiteboard.Service.LoginService;
 
 import java.util.ArrayList;
@@ -37,10 +39,13 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         UserInfoDataSource.initialize(getApplicationContext());
-        LoginService.loginVerify("10175101148", "Chen270499");
-//        DeadlineDataSource.fetchNewDeadlines(getApplicationContext());
-        DeadlineDataSource.readDeadlines(getApplicationContext());
-        List<Deadline> a = DeadlineDataSource.deadlines;
+//        Folder f = new Folder("111");
+//        FolderDataSource.insertFolder(getApplicationContext(), f);
+
+//        LoginService.loginVerify("10175101148", "Chen270499");
+        DeadlineDataSource.fetchNewDeadlines(getApplicationContext());
+//        DeadlineDataSource.readDeadlines(getApplicationContext());
+//        List<Deadline> a = DeadlineDataSource.deadlines;
 
 //        a.get(0).note = "测试";
 //        DeadlineDataSource.updateDeadline(getApplicationContext(), a.get(0));
