@@ -85,4 +85,9 @@ public class DeadlineDataSource {
 
         call.enqueue(callback);
     }
+
+    public static long updateDeadline(Context context, Deadline deadline) {
+        DeadlineDbHelper dbHelper = new DeadlineDbHelper(context);
+        return dbHelper.updateDeadline(deadline);
+    }
 }
