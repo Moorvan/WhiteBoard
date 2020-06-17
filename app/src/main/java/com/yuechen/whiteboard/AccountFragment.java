@@ -21,6 +21,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.flod.loadingbutton.LoadingButton;
+import com.yuechen.whiteboard.DataSource.UserInfoDataSource;
 import com.yuechen.whiteboard.Service.LoginService;
 import com.yuechen.whiteboard.Service.LoginServiceObserver;
 
@@ -38,14 +39,26 @@ public class AccountFragment extends Fragment implements View.OnClickListener, L
     private LoadingButton mSaveButton;
 
     private SharedPreferences.Editor editor;
+    private SharedPreferences pref;
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
+        UserInfoDataSource.initialize(getContext());
         initView();
         initListener();
+        initShow();
 
+    }
+
+    private void initShow() {
+        pref = getActivity().getSharedPreferences("msgSave", Context.MODE_PRIVATE);
+        boolean flag = pref.getBoolean("flag", false);
+        if(flag) {
+            mStudentIDEditText.setText(UserInfoDataSource.getUsername());
+            mPasswordEditText.setText(UserInfoDataSource.getPassword());
+        }
     }
 
     private void initView() {

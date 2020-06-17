@@ -4,34 +4,35 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.widget.Toast;
+
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
-import com.yuechen.whiteboard.Model.Folder;
-import com.yuechen.whiteboard.adapter.FolderAdapter;
+import com.yuechen.whiteboard.DataSource.CourseDataSource;
+import com.yuechen.whiteboard.DataSource.CourseObserver;
+import com.yuechen.whiteboard.Model.Course;
+import com.yuechen.whiteboard.adapter.CourseAdapter;
 
 import java.util.ArrayList;
+import java.util.List;
 
-public class InnerFoldersActivity extends AppCompatActivity {
+public class InnerFoldersActivity extends AppCompatActivity implements CourseObserver {
 
     private Toolbar toolbar;
-    private ArrayList<Folder> folderList = new ArrayList<>();
+    private ArrayList<Course> courseList = new ArrayList<>();
+
+    private CourseAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_inner_folders);
-
-        initView();
+        CourseDataSource.subscribe(this);
 
         initFolders();
-        RecyclerView foldersView = findViewById(R.id.inner_folder);
-        StaggeredGridLayoutManager layoutManager = new
-                StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL);
-        foldersView.setLayoutManager(layoutManager);
-        FolderAdapter adapter = new FolderAdapter(this, folderList, true);
-        foldersView.setAdapter(adapter);
+        initView();
+
     }
 
     private void initView() {
@@ -40,22 +41,26 @@ public class InnerFoldersActivity extends AppCompatActivity {
         toolbar.setNavigationOnClickListener(v -> {
             finish();
         });
+
+        RecyclerView foldersView = findViewById(R.id.inner_folder);
+        StaggeredGridLayoutManager layoutManager = new
+                StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL);
+        foldersView.setLayoutManager(layoutManager);
+        adapter = new CourseAdapter(this, courseList);
+        foldersView.setAdapter(adapter);
     }
 
     private void initFolders() {
-//        Folder folder1 = new Folder("语文", 1);
-//        folderList.add(folder1);
-//        Folder folder2 = new Folder("数学", 2);
-//        folderList.add(folder2);
-//        Folder folder3 = new Folder("英语", 3);
-//        folderList.add(folder3);
-//        Folder folder4 = new Folder("政治", 4);
-//        folderList.add(folder4);
-//        Folder folder5 = new Folder("历史", 5);
-//        folderList.add(folder5);
-//        Folder folder6 = new Folder("生物", 6);
-//        folderList.add(folder6);
-//        Folder folder7 = new Folder("物理", 7);
-//        folderList.add(folder7);
+        CourseDataSource.readCourses(this);
+        courseList = (ArrayList<Course>) CourseDataSource.courses;
+        if(CourseDataSource.courses.isEmpty()) {
+            CourseDataSource.fetchCourses(this);
+        }
     }
+
+    @Override
+    public void notifyCoursesUpdate(List<Course> courses) {
+        adapter.notifyDataSetChanged();
+    }
+
 }

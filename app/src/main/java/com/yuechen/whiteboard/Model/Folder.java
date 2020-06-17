@@ -4,6 +4,7 @@ public class Folder {
     private String name;
     private long folderId = -1;
 
+
     public Folder() {
 
     }
@@ -11,6 +12,7 @@ public class Folder {
     public Folder(String name) {
         this.name = name;
     }
+
 
     public String getName() {
         return name;
