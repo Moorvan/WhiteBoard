@@ -24,7 +24,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class DeadlineDataSource {
     public static List<Deadline> deadlines = new ArrayList<>();
-    public static Map<String, Deadline> deadlineCourseMap = new HashMap<>();
+    public static Map<String, List<Deadline>> deadlineCourseMap = new HashMap<>();
     public static Map<String, Deadline> deadlineIdMap = new HashMap<>();
     public static List<DeadlineObserver> observers = new ArrayList<>();
 
@@ -40,7 +40,10 @@ public class DeadlineDataSource {
         for (Deadline deadline : dbHelper.readDeadlines()) {
             deadlines.add(deadline);
             deadlineIdMap.put(deadline.id, deadline);
-            deadlineCourseMap.put(deadline.calendarID.substring(0, 17), deadline);
+            if(!deadlineCourseMap.containsKey(deadline.calendarID.substring(0, 17))) {
+                deadlineCourseMap.put(deadline.calendarID.substring(0, 17), new ArrayList<>());
+            }
+            deadlineCourseMap.get(deadline.calendarID.substring(0, 17)).add(deadline);
         }
     }
 
@@ -74,7 +77,10 @@ public class DeadlineDataSource {
                             newDeadlines.add(fetchedDeadline);
                             deadlines.add(fetchedDeadline);
                             deadlineIdMap.put(fetchedDeadline.id, fetchedDeadline);
-                            deadlineCourseMap.put(fetchedDeadline.calendarID.substring(0, 17), fetchedDeadline);
+                            if(!deadlineCourseMap.containsKey(fetchedDeadline.calendarID.substring(0, 17))) {
+                                deadlineCourseMap.put(fetchedDeadline.calendarID.substring(0, 17), new ArrayList<>());
+                            }
+                            deadlineCourseMap.get(fetchedDeadline.calendarID.substring(0, 17)).add(fetchedDeadline);
                         }
                     }
 
