@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     private Toolbar toolbar;
-    private BottomNavigationView bottomNavigationView;
+    public BottomNavigationView bottomNavigationView;
 
     private ArrayList<Fragment> fragments;
     private int lastIndex;
@@ -56,6 +56,7 @@ public class MainActivity extends AppCompatActivity {
         initBottomNavigation();
 
 
+
         pref = getSharedPreferences("msgSave", MODE_PRIVATE);
         boolean flag = pref.getBoolean("flag", false);
         if (!flag) {
@@ -64,7 +65,6 @@ public class MainActivity extends AppCompatActivity {
         } else {
             setFragmentPosition(0);
         }
-        CourseDataSource.readCourses(this);
     }
 
     public void initData() {
@@ -78,7 +78,13 @@ public class MainActivity extends AppCompatActivity {
     public void initBottomNavigation() {
         bottomNavigationView = findViewById(R.id.bottom_navigation);
 
+
         bottomNavigationView.setOnNavigationItemSelectedListener(item -> {
+            pref = getSharedPreferences("msgSave", MODE_PRIVATE);
+            boolean flag = pref.getBoolean("flag", false);
+            if(!flag) {
+                return false;
+            }
             switch (item.getItemId()) {
                 case R.id.menu_to_do_list:
                     setFragmentPosition(0);
