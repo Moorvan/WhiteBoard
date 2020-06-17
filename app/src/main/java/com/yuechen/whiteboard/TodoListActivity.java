@@ -26,12 +26,14 @@ public class TodoListActivity extends AppCompatActivity implements DeadlineObser
     private DeadlineAdapter deadlineAdapter;
     private List<TodoItem> todoItems;
 
-    private boolean firstRead = true;
+    private static boolean firstRead = true;
     private boolean isLesson;
     private long folderId;
     private String courseId;
 
     private Toolbar toolbar;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +47,8 @@ public class TodoListActivity extends AppCompatActivity implements DeadlineObser
         } else {
             folderId = bundle.getLong("id");
         }
+
+        DeadlineDataSource.subscribe(this);
 
         todoListView = findViewById(R.id.todolist);
         StaggeredGridLayoutManager layoutManager = new
@@ -79,10 +83,16 @@ public class TodoListActivity extends AppCompatActivity implements DeadlineObser
             if (firstRead) {
                 DeadlineDataSource.readDeadlines(getApplicationContext());
                 firstRead = false;
+                Log.d("deadlines", "First read");
             }
+            List<Deadline> readDeadlines = DeadlineDataSource.deadlineCourseMap.get(courseId);
             deadlines = new ArrayList<>();
-            deadlines.addAll(DeadlineDataSource.deadlineCourseMap.get(courseId));
-            DeadlineDataSource.fetchNewDeadlines(getApplicationContext());
+            if (readDeadlines != null) {
+                deadlines.addAll(readDeadlines);
+            }
+            deadlineAdapter = new DeadlineAdapter(deadlines, this);
+            todoListView.setAdapter(deadlineAdapter);
+            DeadlineDataSource.fetchNewDeadlines(this);
         }
     }
 
@@ -95,8 +105,7 @@ public class TodoListActivity extends AppCompatActivity implements DeadlineObser
                 deadlines.add(deadline);
             }
         }
-        Log.d("deadline", String.valueOf(deadlines.size()));
-        deadlineAdapter = new DeadlineAdapter(deadlines, this);
-        todoListView.setAdapter(deadlineAdapter);
+        Log.d("deadlines", "fetch");
+        deadlineAdapter.notifyDataSetChanged();
     }
 }

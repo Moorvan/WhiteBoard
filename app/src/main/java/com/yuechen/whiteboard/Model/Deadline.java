@@ -11,4 +11,20 @@ public class Deadline {
     public String endDateTime;
     public String note = "";
     public boolean finished = false;
+
+    @Override
+    public String toString() {
+        return "Deadline{" +
+                "id='" + id + '\'' +
+                ", title='" + title + '\'' +
+                ", eventType='" + eventType + '\'' +
+                ", calendarName='" + calendarName + '\'' +
+                ", url='" + url + '\'' +
+                ", calendarID='" + calendarID + '\'' +
+                ", startDateTime='" + startDateTime + '\'' +
+                ", endDateTime='" + endDateTime + '\'' +
+                ", note='" + note + '\'' +
+                ", finished=" + finished +
+                '}';
+    }
 }
