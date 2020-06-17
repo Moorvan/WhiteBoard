@@ -1,4 +1,4 @@
-package com.yuechen.whiteboard.adapter;
+package com.yuechen.whiteboard.Adapter;
 
 import android.content.Context;
 import android.content.Intent;
