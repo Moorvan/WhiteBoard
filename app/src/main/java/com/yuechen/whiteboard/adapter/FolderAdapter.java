@@ -23,6 +23,7 @@ public class FolderAdapter extends RecyclerView.Adapter<FolderAdapter.ViewHolder
     private ArrayList<Folder> mFolderList;
 
     private Context context;
+    private boolean isInner;
 
 
 
@@ -38,9 +39,10 @@ public class FolderAdapter extends RecyclerView.Adapter<FolderAdapter.ViewHolder
         }
     }
 
-    public FolderAdapter(Context context, ArrayList<Folder> mFolderList) {
+    public FolderAdapter(Context context, ArrayList<Folder> mFolderList, boolean isInner) {
         this.context = context;
         this.mFolderList = mFolderList;
+        this.isInner = isInner;
     }
 
 
@@ -52,15 +54,22 @@ public class FolderAdapter extends RecyclerView.Adapter<FolderAdapter.ViewHolder
         holder.folderView.setOnClickListener(v -> {
             int position = holder.getAdapterPosition();
             Folder folder = mFolderList.get(position);
-            if(position == 0) {
+            if(!isInner && position == 0) {
                 Intent intent = new Intent(context, InnerFoldersActivity.class);
                 Bundle bundle = new Bundle();
+                context.startActivity(intent);
+            } else if(!isInner) {
+                Intent intent = new Intent(context, TodoListActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putInt("id", folder.getFolderId());
+                bundle.putBoolean("isLesson", false);
+                intent.putExtras(bundle);
                 context.startActivity(intent);
             } else {
                 Intent intent = new Intent(context, TodoListActivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putInt("id", folder.getFolderId());
-                bundle.putBoolean("isLesson", false);
+                bundle.putBoolean("isLesson", true);
                 intent.putExtras(bundle);
                 context.startActivity(intent);
             }
