@@ -1,5 +1,6 @@
 package com.yuechen.whiteboard;
 
+import android.app.AlertDialog;
 import android.os.Bundle;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -10,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.yuechen.whiteboard.Model.Folder;
 import com.yuechen.whiteboard.adapter.FolderAdapter;
 
@@ -22,6 +24,7 @@ import java.util.ArrayList;
 public class ToDoListFragment extends Fragment {
 
     private ArrayList<Folder> folderList = new ArrayList<>();
+    private FloatingActionButton addBtn;
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
@@ -34,6 +37,16 @@ public class ToDoListFragment extends Fragment {
         FolderAdapter adapter = new FolderAdapter(getContext(), folderList, false);
 //        foldersView.addItemDecoration(new MyItemDecoration());
         foldersView.setAdapter(adapter);
+
+        initView();
+    }
+
+    private void initView() {
+        addBtn = getView().findViewById(R.id.add_btn);
+//        addBtn.setOnClickListener(v -> {
+//            AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+//            builder.setTitle("")
+//        });
     }
 
     private void initFolders() {

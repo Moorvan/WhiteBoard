@@ -73,6 +73,7 @@ public class FolderAdapter extends RecyclerView.Adapter<FolderAdapter.ViewHolder
                 intent.putExtras(bundle);
                 context.startActivity(intent);
             }
+
         });
         return holder;
     }
