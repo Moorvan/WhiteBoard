@@ -8,20 +8,18 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_marginTop="80dip"
-        android:layout_marginStart="20dip"
-        android:layout_marginLeft="20dip">
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="30dp">
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="密       码："
+            android:text="@string/new_item"
             />
         <EditText
+            android:id="@+id/new_item"
             android:layout_width="220dp"
-            android:inputType="textPassword"
             android:layout_height="wrap_content"
-            android:id="@+id/secret"
             />
     </LinearLayout>
 

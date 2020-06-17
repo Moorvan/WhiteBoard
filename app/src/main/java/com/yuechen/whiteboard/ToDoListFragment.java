@@ -1,6 +1,7 @@
 package com.yuechen.whiteboard;
 
 import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -10,8 +11,11 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.yuechen.whiteboard.DataSource.FolderDataSource;
 import com.yuechen.whiteboard.Model.Folder;
 import com.yuechen.whiteboard.adapter.FolderAdapter;
 
@@ -41,39 +45,40 @@ public class ToDoListFragment extends Fragment {
         initView();
     }
 
+
     private void initView() {
         addBtn = getView().findViewById(R.id.add_btn);
-//        addBtn.setOnClickListener(v -> {
-//            AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-//            builder.setTitle("")
-//        });
+        addBtn.setOnClickListener(v -> {
+            AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+            builder.setTitle("添加分类");
+            View view = LayoutInflater.from(getContext()).inflate(R.layout.add_folder_item, null);
+            final EditText newItem = view.findViewById(R.id.new_item);
+            builder.setView(view);
+            builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    String newItemName = newItem.getText().toString();
+                    Toast.makeText(getContext(), newItemName, Toast.LENGTH_SHORT).show();
+                    FolderDataSource.insertFolder(getContext(), new Folder(newItemName));
+                    folderList.add(new Folder(newItemName));
+                }
+            });
+            builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                }
+            });
+            builder.show();
+        });
     }
 
     private void initFolders() {
-//        Folder folder1 = new Folder("课程", 1);
-//        folderList.add(folder1);
-//        Folder folder2 = new Folder("生活", 2);
-//        folderList.add(folder2);
-//        Folder folder3 = new Folder("其他", 3);
-//        folderList.add(folder3);
-//        Folder folder4 = new Folder("其他", 4);
-//        folderList.add(folder4);
-//        Folder folder5 = new Folder("其他", 5);
-//        folderList.add(folder5);
-//        Folder folder6 = new Folder("其他", 6);
-//        folderList.add(folder6);
-//        Folder folder7 = new Folder("其他", 7);
-//        folderList.add(folder7);
-//        Folder folder8 = new Folder("其他", 8);
-//        folderList.add(folder8);
-//        Folder folder9 = new Folder("其他", 9);
-//        folderList.add(folder9);
-//        Folder folder10 = new Folder("其他", 10);
-//        folderList.add(folder10);
-//        Folder folder11 = new Folder("其他", 11);
-//        folderList.add(folder11);
-//        Folder folder12 = new Folder("其他", 12);
-//        folderList.add(folder12);
+        FolderDataSource.readfolders(getContext());
+        folderList = (ArrayList<Folder>)FolderDataSource.folders;
+        if(folderList.size() == 0) {
+            FolderDataSource.insertFolder(getContext(), new Folder("课程"));
+            folderList.add(new Folder("课程"));
+        }
     }
 
     public ToDoListFragment() {

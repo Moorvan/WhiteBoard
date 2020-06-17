@@ -68,7 +68,7 @@ public class FolderAdapter extends RecyclerView.Adapter<FolderAdapter.ViewHolder
             } else {
                 Intent intent = new Intent(context, TodoListActivity.class);
                 Bundle bundle = new Bundle();
-                bundle.putLong("id", folder.getFolderId());
+                bundle.putString("id", folder.getCourseID());
                 bundle.putBoolean("isLesson", true);
                 intent.putExtras(bundle);
                 context.startActivity(intent);

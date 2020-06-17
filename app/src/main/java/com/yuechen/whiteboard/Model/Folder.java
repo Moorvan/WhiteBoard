@@ -4,12 +4,25 @@ public class Folder {
     private String name;
     private long folderId = -1;
 
+
+
+    private String courseID;
+
     public Folder() {
 
     }
 
     public Folder(String name) {
         this.name = name;
+    }
+
+    public Folder(String name, String courseID) {
+        this.name = name;
+        this.courseID = courseID;
+    }
+
+    public String getCourseID() {
+        return courseID;
     }
 
     public String getName() {
