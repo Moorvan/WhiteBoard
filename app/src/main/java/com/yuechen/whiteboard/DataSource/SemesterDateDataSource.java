@@ -30,7 +30,6 @@ public class SemesterDateDataSource {
         SemesterDateDbHelper dbHelper = new SemesterDateDbHelper(context);
         semesterDates.clear();
         semesterDates = dbHelper.readSemesterDates();
-        Log.d("lessonsStart", String.valueOf(semesterDates.size()));
     }
 
     public static void fetchSemesterDates(Context context) {
@@ -60,7 +59,6 @@ public class SemesterDateDataSource {
                             observer.notifySemesterDatesUpdate();
                         }
                     }
-                    Log.d("lessonsStart", String.valueOf(semesterDates.size()));
                 }
             }
 
