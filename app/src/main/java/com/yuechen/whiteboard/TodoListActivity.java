@@ -9,6 +9,7 @@ import android.app.Application;
 import android.os.Bundle;
 import android.util.Log;
 
+import com.yuechen.whiteboard.Adapter.ToDoItemAdapter;
 import com.yuechen.whiteboard.adapter.DeadlineAdapter;
 import com.yuechen.whiteboard.DataSource.DeadlineDataSource;
 import com.yuechen.whiteboard.DataSource.DeadlineObserver;
@@ -25,6 +26,7 @@ public class TodoListActivity extends AppCompatActivity implements DeadlineObser
     private List<Deadline> deadlines;
     private DeadlineAdapter deadlineAdapter;
     private List<TodoItem> todoItems;
+    private ToDoItemAdapter toDoItemAdapter;
 
     private static boolean firstRead = true;
     private boolean isLesson;
