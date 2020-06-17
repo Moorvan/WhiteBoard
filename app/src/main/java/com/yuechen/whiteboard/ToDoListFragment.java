@@ -1,17 +1,9 @@
 package com.yuechen.whiteboard;
 
-
-import android.graphics.Canvas;
-import android.graphics.Paint;
-import android.graphics.Rect;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.recyclerview.widget.RecyclerView.ItemDecoration;
-import androidx.recyclerview.widget.RecyclerViewAccessibilityDelegate;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import android.view.LayoutInflater;
@@ -20,7 +12,6 @@ import android.view.ViewGroup;
 
 import com.yuechen.whiteboard.Model.Folder;
 import com.yuechen.whiteboard.adapter.FolderAdapter;
-import com.yuechen.whiteboard.layoutUtil.MyItemDecoration;
 
 import java.util.ArrayList;
 
@@ -40,7 +31,7 @@ public class ToDoListFragment extends Fragment {
         StaggeredGridLayoutManager layoutManager = new
                 StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL);
         foldersView.setLayoutManager(layoutManager);
-        FolderAdapter adapter = new FolderAdapter(getContext(), folderList);
+        FolderAdapter adapter = new FolderAdapter(getContext(), folderList, false);
 //        foldersView.addItemDecoration(new MyItemDecoration());
         foldersView.setAdapter(adapter);
     }
