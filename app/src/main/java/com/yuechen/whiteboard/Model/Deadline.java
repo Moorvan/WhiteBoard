@@ -9,4 +9,6 @@ public class Deadline {
     public String calendarID;
     public String startDateTime;
     public String endDateTime;
+    public String note = "";
+    public boolean finished = false;
 }

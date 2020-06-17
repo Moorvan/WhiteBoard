@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.provider.BaseColumns;
 
+import com.yuechen.whiteboard.DataSource.UserInfoDataSource;
 import com.yuechen.whiteboard.Model.Deadline;
 
 import java.util.ArrayList;
@@ -29,6 +30,8 @@ public class DeadlineDbHelper extends SQLiteOpenHelper {
         public static final String COLUMN_NAME_CALENDAR_ID = "calendar_id";
         public static final String COLUMN_NAME_START_DATE_TIME = "start_date_time";
         public static final String COLUMN_NAME_END_DATE_TIME = "end_date_time";
+        public static final String COLUMN_NAME_FINISHED = "finished";
+        public static final String COLUMN_NAME_NOTE = "note";
     }
 
     private static final String SQL_CREATE_ENTRIES =
@@ -40,7 +43,9 @@ public class DeadlineDbHelper extends SQLiteOpenHelper {
                     DeadlineEntry.COLUMN_NAME_URL + " TEXT," +
                     DeadlineEntry.COLUMN_NAME_CALENDAR_ID + " TEXT," +
                     DeadlineEntry.COLUMN_NAME_START_DATE_TIME + " DATETIME," +
-                    DeadlineEntry.COLUMN_NAME_END_DATE_TIME + " DATETIME)";
+                    DeadlineEntry.COLUMN_NAME_END_DATE_TIME + " DATETIME," +
+                    DeadlineEntry.COLUMN_NAME_NOTE + " TEXT," +
+                    DeadlineEntry.COLUMN_NAME_FINISHED + " BOOLEAN)";
 
     private static final String SQL_DELETE_ENTRIES =
             "DROP TABLE IF EXISTS " + DeadlineEntry.TABLE_NAME;
@@ -66,6 +71,7 @@ public class DeadlineDbHelper extends SQLiteOpenHelper {
 
     /**
      * Read deadlines from database.
+     *
      * @return
      */
     public List<Deadline> readDeadlines() {
@@ -79,7 +85,9 @@ public class DeadlineDbHelper extends SQLiteOpenHelper {
                 DeadlineEntry.COLUMN_NAME_EVENT_TYPE,
                 DeadlineEntry.COLUMN_NAME_URL,
                 DeadlineEntry.COLUMN_NAME_START_DATE_TIME,
-                DeadlineEntry.COLUMN_NAME_END_DATE_TIME
+                DeadlineEntry.COLUMN_NAME_END_DATE_TIME,
+                DeadlineEntry.COLUMN_NAME_NOTE,
+                DeadlineEntry.COLUMN_NAME_FINISHED
         };
 
         Cursor cursor = db.query(
@@ -103,6 +111,8 @@ public class DeadlineDbHelper extends SQLiteOpenHelper {
             deadline.url = cursor.getString(cursor.getColumnIndexOrThrow(DeadlineEntry.COLUMN_NAME_URL));
             deadline.startDateTime = cursor.getString(cursor.getColumnIndexOrThrow(DeadlineEntry.COLUMN_NAME_START_DATE_TIME));
             deadline.endDateTime = cursor.getString(cursor.getColumnIndexOrThrow(DeadlineEntry.COLUMN_NAME_END_DATE_TIME));
+            deadline.note = cursor.getString(cursor.getColumnIndexOrThrow(DeadlineEntry.COLUMN_NAME_NOTE));
+            deadline.finished = cursor.getInt(cursor.getColumnIndexOrThrow(DeadlineEntry.COLUMN_NAME_FINISHED)) > 0;
             deadlines.add(deadline);
         }
         cursor.close();
@@ -112,6 +122,7 @@ public class DeadlineDbHelper extends SQLiteOpenHelper {
 
     /**
      * Insert specific deadline into database.
+     *
      * @param deadline
      */
     public long insertDeadline(Deadline deadline) {
@@ -126,8 +137,31 @@ public class DeadlineDbHelper extends SQLiteOpenHelper {
         values.put(DeadlineEntry.COLUMN_NAME_URL, deadline.url);
         values.put(DeadlineEntry.COLUMN_NAME_START_DATE_TIME, deadline.startDateTime);
         values.put(DeadlineEntry.COLUMN_NAME_END_DATE_TIME, deadline.endDateTime);
+        values.put(DeadlineEntry.COLUMN_NAME_NOTE, deadline.note);
+        values.put(DeadlineEntry.COLUMN_NAME_FINISHED, deadline.finished);
 
         long newRowId = db.insert(DeadlineEntry.TABLE_NAME, null, values);
         return newRowId;
+    }
+
+    // 只允许修改 note 与 finished.
+    public long updateDeadline(Deadline deadline) {
+        SQLiteDatabase db = getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(DeadlineEntry.COLUMN_NAME_NOTE, deadline.note);
+        values.put(DeadlineEntry.COLUMN_NAME_FINISHED, deadline.finished);
+
+        // Which row to update, based on the id
+        String selection = DeadlineEntry.COLUMN_NAME_ID + " = ? ";
+        String[] selectionArgs = {deadline.id};
+
+        long count = db.update(DeadlineEntry.TABLE_NAME,
+                values,
+                selection,
+                selectionArgs
+        );
+
+        return count;
     }
 }

@@ -12,10 +12,13 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.yuechen.whiteboard.DataSource.DeadlineDataSource;
 import com.yuechen.whiteboard.DataSource.UserInfoDataSource;
+import com.yuechen.whiteboard.Model.Deadline;
 import com.yuechen.whiteboard.Service.LoginService;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -35,9 +38,13 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         UserInfoDataSource.initialize(getApplicationContext());
-        LoginService.loginVerify("10175101148", "密码");
-//        String username = UserInfoDataSource.getUsername();
-//        String password = UserInfoDataSource.getPassword();
+        LoginService.loginVerify("10175101148", "Chen270499");
+//        DeadlineDataSource.fetchNewDeadlines(getApplicationContext());
+        DeadlineDataSource.readDeadlines(getApplicationContext());
+        List<Deadline> a = DeadlineDataSource.deadlines;
+
+//        a.get(0).note = "测试";
+//        DeadlineDataSource.updateDeadline(getApplicationContext(), a.get(0));
 
         toolbar = findViewById(R.id.toolbar);
         initData();
@@ -46,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
 
         pref = getSharedPreferences("msgSave", MODE_PRIVATE);
         boolean flag = pref.getBoolean("flag", false);
-        if(!flag) {
+        if (!flag) {
             setFragmentPosition(2);
             bottomNavigationView.getMenu().getItem(2).setChecked(true);
         } else {
@@ -93,7 +100,7 @@ public class MainActivity extends AppCompatActivity {
         Fragment lastFragment = fragments.get(lastIndex);
         lastIndex = position;
         ft.hide(lastFragment);
-        if(!currentFragment.isAdded()) {
+        if (!currentFragment.isAdded()) {
             getSupportFragmentManager().beginTransaction().remove(currentFragment).commit();
             ft.add(R.id.ll_frameLayout, currentFragment);
         }

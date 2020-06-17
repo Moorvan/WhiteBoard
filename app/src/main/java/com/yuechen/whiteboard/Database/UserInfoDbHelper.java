@@ -104,14 +104,12 @@ public class UserInfoDbHelper extends SQLiteOpenHelper {
         clearUserInfo();
         SQLiteDatabase db = getWritableDatabase();
 
-        long count = 0;
         ContentValues values = new ContentValues();
         values.put(UserInfoEntry.COLUMN_NAME_USERNAME, UserInfoDataSource.getUsername());
         values.put(UserInfoEntry.COLUMN_NAME_PASSWORD, UserInfoDataSource.getPassword());
         values.put(UserInfoEntry.COLUMN_NAME_YEAR, UserInfoDataSource.getYear());
         values.put(UserInfoEntry.COLUMN_NAME_SEMESTER_INDEX, UserInfoDataSource.getSemesterIndex());
-        long newRowId = db.insert(UserInfoEntry.TABLE_NAME, null, values);
-        if (newRowId != -1) count++;
+        long count = db.insert(UserInfoEntry.TABLE_NAME, null, values);
 
         return count;
     }
