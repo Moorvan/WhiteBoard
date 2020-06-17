@@ -12,12 +12,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.yuechen.whiteboard.DataSource.FolderDataSource;
 import com.yuechen.whiteboard.Model.Folder;
-import com.yuechen.whiteboard.Adapter.FolderAdapter;
+import com.yuechen.whiteboard.adapter.FolderAdapter;
 
 import java.util.ArrayList;
 
@@ -27,7 +26,7 @@ import java.util.ArrayList;
  */
 public class ToDoListFragment extends Fragment {
 
-    private ArrayList<Folder> folderList = new ArrayList<>();
+    private ArrayList<Folder> folderList;
     private FloatingActionButton addBtn;
 
     @Override
@@ -38,10 +37,9 @@ public class ToDoListFragment extends Fragment {
         StaggeredGridLayoutManager layoutManager = new
                 StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL);
         foldersView.setLayoutManager(layoutManager);
-        FolderAdapter adapter = new FolderAdapter(getContext(), folderList, false);
+        FolderAdapter adapter = new FolderAdapter(getContext(), folderList);
 //        foldersView.addItemDecoration(new MyItemDecoration());
         foldersView.setAdapter(adapter);
-
         initView();
     }
 
@@ -58,9 +56,7 @@ public class ToDoListFragment extends Fragment {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     String newItemName = newItem.getText().toString();
-                    Toast.makeText(getContext(), newItemName, Toast.LENGTH_SHORT).show();
                     FolderDataSource.insertFolder(getContext(), new Folder(newItemName));
-                    folderList.add(new Folder(newItemName));
                 }
             });
             builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
@@ -77,7 +73,6 @@ public class ToDoListFragment extends Fragment {
         folderList = (ArrayList<Folder>)FolderDataSource.folders;
         if(folderList.size() == 0) {
             FolderDataSource.insertFolder(getContext(), new Folder("课程"));
-            folderList.add(new Folder("课程"));
         }
     }
 
