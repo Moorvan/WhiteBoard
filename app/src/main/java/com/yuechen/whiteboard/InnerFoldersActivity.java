@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 import com.yuechen.whiteboard.DataSource.CourseDataSource;
 import com.yuechen.whiteboard.DataSource.CourseObserver;
 import com.yuechen.whiteboard.Model.Course;
-import com.yuechen.whiteboard.adapter.CourseAdapter;
+import com.yuechen.whiteboard.Adapter.CourseAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
