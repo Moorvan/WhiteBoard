@@ -17,4 +17,9 @@ public class Course {
         return courseInstructor;
     }
 
+    public Course() {}
+    public Course(String courseName) {
+        this.courseName = courseName;
+    }
+
 }

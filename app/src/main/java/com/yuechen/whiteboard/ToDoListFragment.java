@@ -12,12 +12,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.yuechen.whiteboard.DataSource.FolderDataSource;
 import com.yuechen.whiteboard.Model.Folder;
-import com.yuechen.whiteboard.Adapter.FolderAdapter;
+import com.yuechen.whiteboard.adapter.FolderAdapter;
 
 import java.util.ArrayList;
 
@@ -41,7 +40,6 @@ public class ToDoListFragment extends Fragment {
         FolderAdapter adapter = new FolderAdapter(getContext(), folderList);
 //        foldersView.addItemDecoration(new MyItemDecoration());
         foldersView.setAdapter(adapter);
-
         initView();
     }
 

@@ -16,10 +16,10 @@ import com.yuechen.whiteboard.Model.Course;
 import com.yuechen.whiteboard.R;
 import com.yuechen.whiteboard.TodoListActivity;
 
-import java.util.List;
+import java.util.ArrayList;
 
 public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder> {
-    private List<Course> mCourseList;
+    private ArrayList<Course> mCourseList;
 
     private Context context;
 
@@ -32,19 +32,19 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
         public ViewHolder(View view) {
             super(view);
             courseView = view;
-            courseNameView = view.findViewById(R.id.folder_name);
+            courseNameView = view.findViewById(R.id.course_name);
         }
     }
 
-    public CourseAdapter(Context context, List<Course> mCourseList) {
+    public CourseAdapter(Context context, ArrayList<Course> mCourseList) {
         this.context = context;
         this.mCourseList = mCourseList;
     }
 
-    @NonNull
+
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.folder_item, parent, false);
+    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.course_item, parent, false);
         final ViewHolder holder = new ViewHolder(view);
 
         holder.courseView.setOnClickListener(v -> {

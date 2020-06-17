@@ -22,6 +22,8 @@ public class InnerFoldersActivity extends AppCompatActivity implements CourseObs
     private Toolbar toolbar;
     private ArrayList<Course> courseList = new ArrayList<>();
 
+    private CourseAdapter adapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,12 +32,7 @@ public class InnerFoldersActivity extends AppCompatActivity implements CourseObs
 
         initFolders();
         initView();
-        RecyclerView foldersView = findViewById(R.id.inner_folder);
-        StaggeredGridLayoutManager layoutManager = new
-                StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL);
-        foldersView.setLayoutManager(layoutManager);
-        CourseAdapter adapter = new CourseAdapter(this, courseList);
-        foldersView.setAdapter(adapter);
+
     }
 
     private void initView() {
@@ -44,23 +41,26 @@ public class InnerFoldersActivity extends AppCompatActivity implements CourseObs
         toolbar.setNavigationOnClickListener(v -> {
             finish();
         });
+
+        RecyclerView foldersView = findViewById(R.id.inner_folder);
+        StaggeredGridLayoutManager layoutManager = new
+                StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL);
+        foldersView.setLayoutManager(layoutManager);
+        adapter = new CourseAdapter(this, courseList);
+        foldersView.setAdapter(adapter);
     }
 
     private void initFolders() {
         CourseDataSource.readCourses(this);
+        courseList = (ArrayList<Course>) CourseDataSource.courses;
         if(CourseDataSource.courses.isEmpty()) {
             CourseDataSource.fetchCourses(this);
         }
-//        courseList = (ArrayList<Course>) CourseDataSource.courses;
-//        Toast.makeText(this, courseList.size() + "", Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void notifyCoursesUpdate(List<Course> courses) {
-//        initFolders();
-        courseList = (ArrayList<Course>) courses;
-        Toast.makeText(this, courseList.get(0).getCourseName() + "11111", Toast.LENGTH_SHORT).show();
-
+        adapter.notifyDataSetChanged();
     }
 
 }
