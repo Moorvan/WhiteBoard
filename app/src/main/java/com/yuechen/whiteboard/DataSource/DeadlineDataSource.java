@@ -20,7 +20,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class DeadlineDataSource {
     public static List<Deadline> deadlines = new ArrayList<>();
-    public static Map<String, Deadline> deadlineMap = new HashMap<>();
+    public static Map<String, Deadline> deadlineCourseMap = new HashMap<>();
+    public static Map<String, Deadline> deadlineIdMap = new HashMap<>();
     public static List<DeadlineObserver> observers = new ArrayList<>();
 
     public static void subscribe(DeadlineObserver observer) {
@@ -30,9 +31,12 @@ public class DeadlineDataSource {
     public static void readDeadlines(Context context) {
         DeadlineDbHelper dbHelper = new DeadlineDbHelper(context);
         deadlines.clear();
+        deadlineIdMap.clear();
+        deadlineCourseMap.clear();
         for (Deadline deadline : dbHelper.readDeadlines()) {
             deadlines.add(deadline);
-            deadlineMap.put(deadline.id, deadline);
+            deadlineIdMap.put(deadline.id, deadline);
+            deadlineCourseMap.put(deadline.calendarID.substring(0, 18), deadline);
         }
     }
 
@@ -61,11 +65,12 @@ public class DeadlineDataSource {
                     DeadlineDbHelper dbHelper = new DeadlineDbHelper(context);
 
                     for (Deadline fetchedDeadline : fetchedDeadlines) {
-                        if (!deadlineMap.containsKey(fetchedDeadline.id)) {
+                        if (!deadlineIdMap.containsKey(fetchedDeadline.id)) {
                             dbHelper.insertDeadline(fetchedDeadline);
                             newDeadlines.add(fetchedDeadline);
                             deadlines.add(fetchedDeadline);
-                            deadlineMap.put(fetchedDeadline.id, fetchedDeadline);
+                            deadlineIdMap.put(fetchedDeadline.id, fetchedDeadline);
+                            deadlineCourseMap.put(fetchedDeadline.calendarID.substring(0, 18), fetchedDeadline);
                         }
                     }
 
