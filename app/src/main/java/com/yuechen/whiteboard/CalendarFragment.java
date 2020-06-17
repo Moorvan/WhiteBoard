@@ -25,6 +25,7 @@ import com.yuechen.whiteboard.DataSource.UserInfoDataSource;
 import com.yuechen.whiteboard.Model.Lesson;
 
 import java.time.LocalDate;
+import java.time.Year;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.HashMap;
@@ -158,10 +159,7 @@ public class CalendarFragment extends Fragment
 
 
         UserInfoDataSource.initialize(getContext());
-        UserInfoDataSource.setUsername("10175101152");
-        UserInfoDataSource.setPassword("Thwf1858");
-        UserInfoDataSource.setYear(2019);
-        UserInfoDataSource.setSemesterIndex(2);
+        setUserInfoStartDate();
         LessonDataSource.subscribe(this);
         SemesterDateDataSource.subscribe(this);
         if (SemesterDateDataSource.semesterDates.isEmpty()) {
@@ -183,6 +181,27 @@ public class CalendarFragment extends Fragment
                 initCurrentLessons();
             }
         }
+    }
+
+    private void setUserInfoStartDate() {
+        LocalDate current = LocalDate.now();
+        int month = current.getMonth().getValue();
+        long year, semesterIndex;
+        if (month == 1) {
+            year = current.getYear() - 1;
+            semesterIndex = 1;
+        } else if (2 <= month && month <= 6) {
+            year = current.getYear() - 1;
+            semesterIndex = 2;
+        } else if (7 <= month && month <= 8) {
+            year = current.getYear() - 1;
+            semesterIndex = 3;
+        } else {
+            year = current.getYear();
+            semesterIndex = 1;
+        }
+        UserInfoDataSource.setYear(year);
+        UserInfoDataSource.setSemesterIndex(semesterIndex);
     }
 
     // 初始化学期开始日期
