@@ -15,7 +15,7 @@
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
         <activity android:name=".TodoListActivity"></activity>
-        <activity android:name=".InterFoldersActivity" />
+        <activity android:name=".InnerFoldersActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
