@@ -16,7 +16,7 @@ import android.widget.EditText;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.yuechen.whiteboard.DataSource.FolderDataSource;
 import com.yuechen.whiteboard.Model.Folder;
-import com.yuechen.whiteboard.adapter.FolderAdapter;
+import com.yuechen.whiteboard.Adapter.FolderAdapter;
 
 import java.util.ArrayList;
 
