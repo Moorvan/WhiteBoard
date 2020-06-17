@@ -213,7 +213,7 @@ public class CalendarFragment extends Fragment
         int weekOffset = (int) duration / 7;
         Log.d("lessonsDuration", String.valueOf(duration));
         int weekDay = currentDate.getDayOfWeek().getValue() - 1;
-        if (weekOffset < 20 && weekDay < 5) {
+        if (weekOffset >= 0 && weekOffset < 20 && weekDay >= 0 && weekDay < 5) {
             lessons = LessonDataSource.lessonTable[weekOffset][weekDay];
             Log.d("lessons", LessonDataSource.lessonTable[weekOffset][weekDay].toString());
             lessons.sort((l1, l2) ->
