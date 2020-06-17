@@ -1,6 +1,8 @@
 package com.yuechen.whiteboard;
 
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
