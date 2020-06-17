@@ -2,8 +2,12 @@ package com.yuechen.whiteboard.DataSource;
 
 import android.content.Context;
 
+import androidx.annotation.Nullable;
+
 import com.yuechen.whiteboard.Database.DeadlineDbHelper;
+import com.yuechen.whiteboard.Database.FolderDbHelper;
 import com.yuechen.whiteboard.Model.Deadline;
+import com.yuechen.whiteboard.Model.Folder;
 import com.yuechen.whiteboard.Network.EcnuNetworkService;
 import com.yuechen.whiteboard.Network.ResultEntity;
 
@@ -91,8 +95,30 @@ public class DeadlineDataSource {
         call.enqueue(callback);
     }
 
-    public static long updateDeadline(Context context, Deadline deadline) {
-        DeadlineDbHelper dbHelper = new DeadlineDbHelper(context);
-        return dbHelper.updateDeadline(deadline);
+    public static long updateDeadline(Context context, String id, boolean finished) {
+        for (Deadline deadline : deadlines) {
+            if (deadline.id == id) {
+                deadline.finished = finished;
+
+                DeadlineDbHelper dbHelper = new DeadlineDbHelper(context);
+                return dbHelper.updateDeadline(deadline);
+            }
+        }
+
+        return -1;
+    }
+
+    public static long updateDeadline(Context context, String id, String note, boolean finished) {
+        for (Deadline deadline : deadlines) {
+            if (deadline.id == id) {
+                deadline.note = note;
+                deadline.finished = finished;
+
+                DeadlineDbHelper dbHelper = new DeadlineDbHelper(context);
+                return dbHelper.updateDeadline(deadline);
+            }
+        }
+
+        return -1;
     }
 }

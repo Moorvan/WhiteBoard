@@ -46,30 +46,30 @@ public class ToDoListFragment extends Fragment {
     }
 
     private void initFolders() {
-        Folder folder1 = new Folder("课程", 1);
-        folderList.add(folder1);
-        Folder folder2 = new Folder("生活", 2);
-        folderList.add(folder2);
-        Folder folder3 = new Folder("其他", 3);
-        folderList.add(folder3);
-        Folder folder4 = new Folder("其他", 4);
-        folderList.add(folder4);
-        Folder folder5 = new Folder("其他", 5);
-        folderList.add(folder5);
-        Folder folder6 = new Folder("其他", 6);
-        folderList.add(folder6);
-        Folder folder7 = new Folder("其他", 7);
-        folderList.add(folder7);
-        Folder folder8 = new Folder("其他", 8);
-        folderList.add(folder8);
-        Folder folder9 = new Folder("其他", 9);
-        folderList.add(folder9);
-        Folder folder10 = new Folder("其他", 10);
-        folderList.add(folder10);
-        Folder folder11 = new Folder("其他", 11);
-        folderList.add(folder11);
-        Folder folder12 = new Folder("其他", 12);
-        folderList.add(folder12);
+//        Folder folder1 = new Folder("课程", 1);
+//        folderList.add(folder1);
+//        Folder folder2 = new Folder("生活", 2);
+//        folderList.add(folder2);
+//        Folder folder3 = new Folder("其他", 3);
+//        folderList.add(folder3);
+//        Folder folder4 = new Folder("其他", 4);
+//        folderList.add(folder4);
+//        Folder folder5 = new Folder("其他", 5);
+//        folderList.add(folder5);
+//        Folder folder6 = new Folder("其他", 6);
+//        folderList.add(folder6);
+//        Folder folder7 = new Folder("其他", 7);
+//        folderList.add(folder7);
+//        Folder folder8 = new Folder("其他", 8);
+//        folderList.add(folder8);
+//        Folder folder9 = new Folder("其他", 9);
+//        folderList.add(folder9);
+//        Folder folder10 = new Folder("其他", 10);
+//        folderList.add(folder10);
+//        Folder folder11 = new Folder("其他", 11);
+//        folderList.add(folder11);
+//        Folder folder12 = new Folder("其他", 12);
+//        folderList.add(folder12);
     }
 
     public ToDoListFragment() {

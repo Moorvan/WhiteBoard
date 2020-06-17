@@ -20,13 +20,21 @@ public class FolderDataSource {
     }
 
     public static long insertFolder(Context context, Folder folder) {
+        folders.add(folder);
         FolderDbHelper dbHelper = new FolderDbHelper(context);
         return dbHelper.insertFolder(folder);
     }
 
-    public static long updateFolder(Context context, Folder folder) {
-        FolderDbHelper dbHelper = new FolderDbHelper(context);
-        return dbHelper.updateFolder(folder);
+    public static long updateFolder(Context context, long folderId, String name) {
+        for (Folder folder : folders) {
+            if (folder.getFolderId() == folderId) {
+                folder.setName(name);
+                FolderDbHelper dbHelper = new FolderDbHelper(context);
+                return dbHelper.updateFolder(folder);
+            }
+        }
+
+        return -1;
     }
 
     public static void deleteFolder(Context context, Folder folder) {
