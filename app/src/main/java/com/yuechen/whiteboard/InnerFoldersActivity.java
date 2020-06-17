@@ -35,6 +35,12 @@ public class InnerFoldersActivity extends AppCompatActivity implements CourseObs
 
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        CourseDataSource.unsubscribe(this);
+    }
+
     private void initView() {
         toolbar = findViewById(R.id.second_toolbar);
         toolbar.setTitle("课程");

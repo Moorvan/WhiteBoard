@@ -86,6 +86,7 @@ public class CourseDbHelper extends SQLiteOpenHelper {
             course.courseID = cursor.getString(cursor.getColumnIndexOrThrow(CourseDbHelper.CourseEntry.COLUMN_NAME_COURSE_ID));
             course.courseName = cursor.getString(cursor.getColumnIndexOrThrow(CourseDbHelper.CourseEntry.COLUMN_NAME_COURSE_NAME));
             course.courseInstructor = cursor.getString(cursor.getColumnIndexOrThrow(CourseDbHelper.CourseEntry.COLUMN_NAME_COURSE_INSTRUCTOR));
+            courses.add(course);
         }
         cursor.close();
         return courses;
