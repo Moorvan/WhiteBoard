@@ -3,6 +3,7 @@ package com.yuechen.whiteboard;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.widget.Toast;
 
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.RecyclerView;
@@ -11,8 +12,7 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 import com.yuechen.whiteboard.DataSource.CourseDataSource;
 import com.yuechen.whiteboard.DataSource.CourseObserver;
 import com.yuechen.whiteboard.Model.Course;
-import com.yuechen.whiteboard.Model.Folder;
-import com.yuechen.whiteboard.adapter.FolderAdapter;
+import com.yuechen.whiteboard.adapter.CourseAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,12 +20,13 @@ import java.util.List;
 public class InnerFoldersActivity extends AppCompatActivity implements CourseObserver {
 
     private Toolbar toolbar;
-    private ArrayList<Folder> folderList = new ArrayList<>();
+    private ArrayList<Course> courseList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_inner_folders);
+        CourseDataSource.subscribe(this);
 
         initFolders();
         initView();
@@ -33,7 +34,7 @@ public class InnerFoldersActivity extends AppCompatActivity implements CourseObs
         StaggeredGridLayoutManager layoutManager = new
                 StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL);
         foldersView.setLayoutManager(layoutManager);
-        FolderAdapter adapter = new FolderAdapter(this, folderList, true);
+        CourseAdapter adapter = new CourseAdapter(this, courseList);
         foldersView.setAdapter(adapter);
     }
 
@@ -46,14 +47,20 @@ public class InnerFoldersActivity extends AppCompatActivity implements CourseObs
     }
 
     private void initFolders() {
-        CourseDataSource.subscribe(this);
+        CourseDataSource.readCourses(this);
+        if(CourseDataSource.courses.isEmpty()) {
+            CourseDataSource.fetchCourses(this);
+        }
+//        courseList = (ArrayList<Course>) CourseDataSource.courses;
+//        Toast.makeText(this, courseList.size() + "", Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void notifyCoursesUpdate(List<Course> courses) {
+//        initFolders();
+        courseList = (ArrayList<Course>) courses;
+        Toast.makeText(this, courseList.get(0).getCourseName() + "11111", Toast.LENGTH_SHORT).show();
 
-        for(Course course : courses) {
-            Folder folder = new Folder(course.courseName, course.courseID);
-        }
     }
+
 }
