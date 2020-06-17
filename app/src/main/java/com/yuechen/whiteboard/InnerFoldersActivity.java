@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import com.yuechen.whiteboard.Model.Folder;
-import com.yuechen.whiteboard.adapter.FolderAdapter;
+import com.yuechen.whiteboard.Adapter.FolderAdapter;
 
 import java.util.ArrayList;
 
