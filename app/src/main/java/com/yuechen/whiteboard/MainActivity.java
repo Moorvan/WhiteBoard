@@ -11,6 +11,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.yuechen.whiteboard.DataSource.CourseDataSource;
 import com.yuechen.whiteboard.DataSource.DeadlineDataSource;
 import com.yuechen.whiteboard.DataSource.FolderDataSource;
 import com.yuechen.whiteboard.DataSource.UserInfoDataSource;
@@ -63,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
         } else {
             setFragmentPosition(0);
         }
-
+        CourseDataSource.readCourses(this);
     }
 
     public void initData() {

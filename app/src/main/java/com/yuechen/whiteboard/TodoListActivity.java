@@ -9,7 +9,7 @@ import android.app.Application;
 import android.os.Bundle;
 import android.util.Log;
 
-import com.yuechen.whiteboard.Adapter.DeadlineAdapter;
+import com.yuechen.whiteboard.adapter.DeadlineAdapter;
 import com.yuechen.whiteboard.DataSource.DeadlineDataSource;
 import com.yuechen.whiteboard.DataSource.DeadlineObserver;
 import com.yuechen.whiteboard.Model.Deadline;
