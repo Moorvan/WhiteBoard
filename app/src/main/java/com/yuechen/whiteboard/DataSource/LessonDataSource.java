@@ -104,7 +104,6 @@ public class LessonDataSource {
                     LessonDbHelper dbHelper = new LessonDbHelper(context);
                     dbHelper.clearLessons();
                     clear();
-                    Log.d("lessonsSize", String.valueOf(fetchedLessons.size()));
 
                     for (Lesson fetchedLesson : fetchedLessons) {
                         lessonTable[fetchedLesson.weekOffset][fetchedLesson.dayOffset].add(fetchedLesson);
@@ -118,16 +117,16 @@ public class LessonDataSource {
                     }
 
                     // test
-                    int cnt = 0;
-                    for (int i = 0; i < WEEK_NUM; i++) {
-                        for (int j = 0; j < DAY_NUM; j++) {
-                            for (int k = 0; k < lessonTable[i][j].size(); k++) {
-                                Log.d("lessons", lessonTable[i][j].get(k).toString());
-                                cnt++;
-                            }
-                        }
-                    }
-                    Log.d("lessonsCount", String.valueOf(cnt));
+//                    int cnt = 0;
+//                    for (int i = 0; i < WEEK_NUM; i++) {
+//                        for (int j = 0; j < DAY_NUM; j++) {
+//                            for (int k = 0; k < lessonTable[i][j].size(); k++) {
+//                                Log.d("lessons", lessonTable[i][j].get(k).toString());
+//                                cnt++;
+//                            }
+//                        }
+//                    }
+//                    Log.d("lessonsCount", String.valueOf(cnt));
                 }
 
             }
