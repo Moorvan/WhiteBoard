@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
 //        FolderDataSource.insertFolder(getApplicationContext(), f);
 
 //        LoginService.loginVerify("10175101148", "Chen270499");
-//        DeadlineDataSource.fetchNewDeadlines(getApplicationContext());
+        DeadlineDataSource.fetchNewDeadlines(getApplicationContext());
 //        DeadlineDataSource.readDeadlines(getApplicationContext());
 //        List<Deadline> a = DeadlineDataSource.deadlines;
 

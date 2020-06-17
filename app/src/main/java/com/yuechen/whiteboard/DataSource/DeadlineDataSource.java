@@ -40,7 +40,7 @@ public class DeadlineDataSource {
         for (Deadline deadline : dbHelper.readDeadlines()) {
             deadlines.add(deadline);
             deadlineIdMap.put(deadline.id, deadline);
-            deadlineCourseMap.put(deadline.calendarID.substring(0, 18), deadline);
+            deadlineCourseMap.put(deadline.calendarID.substring(0, 17), deadline);
         }
     }
 
@@ -74,7 +74,7 @@ public class DeadlineDataSource {
                             newDeadlines.add(fetchedDeadline);
                             deadlines.add(fetchedDeadline);
                             deadlineIdMap.put(fetchedDeadline.id, fetchedDeadline);
-                            deadlineCourseMap.put(fetchedDeadline.calendarID.substring(0, 18), fetchedDeadline);
+                            deadlineCourseMap.put(fetchedDeadline.calendarID.substring(0, 17), fetchedDeadline);
                         }
                     }
 
