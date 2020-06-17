@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
         } else {
             setFragmentPosition(0);
         }
-
+        CourseDataSource.readCourses(this);
     }
 
     public void initData() {

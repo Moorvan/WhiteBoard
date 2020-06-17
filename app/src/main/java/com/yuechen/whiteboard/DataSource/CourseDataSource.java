@@ -30,7 +30,7 @@ public class CourseDataSource {
 
     public static void readCourses(Context context) {
         CourseDbHelper dbHelper = new CourseDbHelper(context);
-        courses.clear();
+//        courses.clear();
         for (Course course : dbHelper.readCourses()) {
             courses.add(course);
         }

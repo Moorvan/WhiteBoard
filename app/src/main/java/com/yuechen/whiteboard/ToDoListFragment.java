@@ -71,7 +71,7 @@ public class ToDoListFragment extends Fragment {
     private void initFolders() {
         FolderDataSource.readfolders(getContext());
         folderList = (ArrayList<Folder>)FolderDataSource.folders;
-        if(folderList.size() == 0) {
+        if(folderList.isEmpty()) {
             FolderDataSource.insertFolder(getContext(), new Folder("课程"));
         }
     }
