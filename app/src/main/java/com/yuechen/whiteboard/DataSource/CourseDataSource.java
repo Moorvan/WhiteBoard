@@ -1,6 +1,7 @@
 package com.yuechen.whiteboard.DataSource;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.yuechen.whiteboard.Database.CourseDbHelper;
 import com.yuechen.whiteboard.Model.Course;
@@ -22,6 +23,9 @@ public class CourseDataSource {
 
     public static void subscribe(CourseObserver observer) {
         observers.add(observer);
+    }
+    public static void unsubscribe(CourseObserver observer) {
+        observers.remove(observer);
     }
 
     public static void readCourses(Context context) {
@@ -52,10 +56,10 @@ public class CourseDataSource {
                     ArrayList<Course> fetchedCourses = response.body().data;
                     CourseDbHelper dbHelper = new CourseDbHelper(context);
                     dbHelper.clearCourses();
-                    courses.clear();
+                    CourseDataSource.courses.clear();
 
                     for (Course fetchedCourse : fetchedCourses) {
-                        courses.add(fetchedCourse);
+                        CourseDataSource.courses.add(fetchedCourse);
                     }
 
                     if (fetchedCourses.size() > 0) {

@@ -35,6 +35,12 @@ public class InnerFoldersActivity extends AppCompatActivity implements CourseObs
 
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        CourseDataSource.unsubscribe(this);
+    }
+
     private void initView() {
         toolbar = findViewById(R.id.second_toolbar);
         toolbar.setTitle("课程");
@@ -51,10 +57,10 @@ public class InnerFoldersActivity extends AppCompatActivity implements CourseObs
     }
 
     private void initFolders() {
-        CourseDataSource.readCourses(this);
+        CourseDataSource.readCourses(getApplicationContext());
         courseList = (ArrayList<Course>) CourseDataSource.courses;
         if(CourseDataSource.courses.isEmpty()) {
-            CourseDataSource.fetchCourses(this);
+            CourseDataSource.fetchCourses(getApplicationContext());
         }
     }
 
