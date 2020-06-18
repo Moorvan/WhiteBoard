@@ -1,6 +1,7 @@
 package com.yuechen.whiteboard.Adapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.github.chengang.library.TickView;
+import com.google.android.material.card.MaterialCardView;
+import com.yuechen.whiteboard.DataSource.TodoItemDataSource;
 import com.yuechen.whiteboard.Model.TodoItem;
 import com.yuechen.whiteboard.R;
 
@@ -26,6 +29,7 @@ public class ToDoItemAdapter extends RecyclerView.Adapter<ToDoItemAdapter.ViewHo
         TextView todoListContentView;
         TextView todoListNoteView;
         TickView todoListCheckView;
+        MaterialCardView todoListCardView;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -35,6 +39,7 @@ public class ToDoItemAdapter extends RecyclerView.Adapter<ToDoItemAdapter.ViewHo
             todoListContentView = todoListView.findViewById(R.id.deadline_content);
             todoListNoteView = todoListView.findViewById(R.id.deadline_note);
             todoListCheckView = todoListView.findViewById(R.id.deadline_check);
+            todoListCardView = todoListView.findViewById(R.id.deadline_card);
         }
     }
 
@@ -49,6 +54,14 @@ public class ToDoItemAdapter extends RecyclerView.Adapter<ToDoItemAdapter.ViewHo
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.todo_item_layout, parent, false);
         final ViewHolder holder = new ViewHolder(view);
+        holder.todoListCheckView.setOnCheckedChangeListener((v, isChecked) -> {
+            int position = holder.getAdapterPosition();
+            TodoItem item = todoItems.get(position);
+            item.finished = isChecked;
+            long res = TodoItemDataSource.updateDeadline(context, item._id, item.finished);
+            Log.d("todo", String.valueOf(res));
+            notifyDataSetChanged();
+        });
         return holder;
     }
 

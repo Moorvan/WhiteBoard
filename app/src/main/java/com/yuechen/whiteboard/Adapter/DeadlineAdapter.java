@@ -45,7 +45,7 @@ public class DeadlineAdapter extends RecyclerView.Adapter<DeadlineAdapter.ViewHo
             deadlineContentView = deadlineView.findViewById(R.id.deadline_content);
             deadlineNoteView = deadlineView.findViewById(R.id.deadline_note);
             deadlineCheckView = deadlineView.findViewById(R.id.deadline_check);
-            deadlineCardView = deadlineView.findViewById(R.id.todo_item_card);
+            deadlineCardView = deadlineView.findViewById(R.id.deadline_card);
         }
     }
 
