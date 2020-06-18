@@ -2,6 +2,8 @@ package com.yuechen.whiteboard.Adapter;
 
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.graphics.Color;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.github.chengang.library.TickView;
 import com.google.android.material.card.MaterialCardView;
+import com.yuechen.whiteboard.DataSource.FolderDataSource;
 import com.yuechen.whiteboard.DataSource.TodoItemDataSource;
 import com.yuechen.whiteboard.Model.TodoItem;
 import com.yuechen.whiteboard.R;
@@ -85,6 +88,31 @@ public class ToDoItemAdapter extends RecyclerView.Adapter<ToDoItemAdapter.ViewHo
             builder.setNegativeButton("取消", (dialog, which) -> {});
             builder.show();
         });
+
+        holder.todoListCardView.setOnLongClickListener(v -> {
+            int position = holder.getAdapterPosition();
+            TodoItem todoItem = todoItems.get(position);
+            AlertDialog dialog = new AlertDialog.Builder(context)
+                    .setTitle("确认删除")
+                    .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            TodoItemDataSource.deleteTodoItem(context, todoItem);
+                            todoItems.remove(todoItem);
+                            notifyDataSetChanged();
+                        }
+                    })
+                    .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                        }
+                    })
+                    .create();
+            dialog.show();
+            dialog.getButton(DialogInterface.BUTTON_POSITIVE).setTextColor(Color.RED);
+            return true;
+        });
+
         holder.todoListCheckView.setOnCheckedChangeListener((v, isChecked) -> {
             int position = holder.getAdapterPosition();
             TodoItem item = todoItems.get(position);

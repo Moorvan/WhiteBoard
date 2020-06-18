@@ -17,10 +17,25 @@ public class TodoItemDataSource {
     public static void readTodoItems(Context context) {
         TodoItemDbHelper dbHelper = new TodoItemDbHelper(context);
         todoItemsMap.clear();
-        todoItemsMap = dbHelper.readTodoItems();
+        todoItems.clear();
+
+        todoItems = dbHelper.readTodoItems();
+        for (TodoItem todoItem : todoItems) {
+            if (!todoItemsMap.containsKey(todoItem.folderID)) {
+                todoItemsMap.put(todoItem.folderID, new ArrayList<>());
+            }
+            todoItemsMap.get(todoItem.folderID).add(todoItem);
+        }
     }
 
     public static long insertTodoItem(Context context, TodoItem todoItem) {
+        todoItems.add(todoItem);
+
+        if (!todoItemsMap.containsKey(todoItem.folderID)) {
+            todoItemsMap.put(todoItem.folderID, new ArrayList<>());
+        }
+        todoItemsMap.get(todoItem.folderID).add(todoItem);
+
         TodoItemDbHelper dbHelper = new TodoItemDbHelper(context);
         return dbHelper.insertTodoItem(todoItem);
     }
@@ -56,6 +71,7 @@ public class TodoItemDataSource {
     }
 
     public static void deleteTodoItem(Context context, TodoItem todoItem) {
+        todoItems.remove(todoItem);
         todoItemsMap.get(todoItem.folderID).remove(todoItem);
         TodoItemDbHelper dbHelper = new TodoItemDbHelper(context);
         dbHelper.removeTodoItem(todoItem);

@@ -48,7 +48,7 @@ public class LoginService {
                 } else {
                     Log.v("登录状况", username + ": 验证登录失败");
                     for (LoginServiceObserver observer : observers) {
-                        observer.notifyLoginVerifyResult(false, "服务器请求失败");
+                        observer.notifyLoginVerifyResult(false, "服务器响应失败");
                     }
                 }
             }
@@ -58,7 +58,7 @@ public class LoginService {
                 System.out.println(t.toString());
                 Log.v("登录状况", username + ": 验证登录失败");
                 for (LoginServiceObserver observer : observers) {
-                    observer.notifyLoginVerifyResult(false, "服务器请求失败");
+                    observer.notifyLoginVerifyResult(false, "发送请求失败");
                 }
             }
         };
