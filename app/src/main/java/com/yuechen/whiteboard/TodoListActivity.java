@@ -1,19 +1,33 @@
 package com.yuechen.whiteboard;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
+import android.content.DialogInterface;
+import android.content.SharedPreferences;
+import android.graphics.Canvas;
+import android.graphics.ColorFilter;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.Toast;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.yuechen.whiteboard.Adapter.DeadlineAdapter;
 
 import com.yuechen.whiteboard.Adapter.ToDoItemAdapter;
 
 import com.yuechen.whiteboard.DataSource.DeadlineDataSource;
 import com.yuechen.whiteboard.DataSource.DeadlineObserver;
+import com.yuechen.whiteboard.DataSource.TodoItemDataSource;
 import com.yuechen.whiteboard.Model.Deadline;
 import com.yuechen.whiteboard.Model.TodoItem;
 
@@ -35,6 +49,8 @@ public class TodoListActivity extends AppCompatActivity implements DeadlineObser
     private String courseId;
 
     private Toolbar toolbar;
+
+    private FloatingActionButton addBtn;
 
 
 
@@ -60,12 +76,50 @@ public class TodoListActivity extends AppCompatActivity implements DeadlineObser
 
         initTodoList();
 
+        initAddBtn();
+
     }
 
     private void initToolBar() {
         toolbar = findViewById(R.id.todolist_toolbar);
         toolbar.setTitle("待办事项");
         toolbar.setNavigationOnClickListener((v) -> finish());
+    }
+
+    private void initAddBtn() {
+        addBtn = findViewById(R.id.add_btn);
+
+        addBtn.setOnClickListener(v -> {
+//            Toast.makeText(this, "1111", Toast.LENGTH_SHORT).show();
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle("添加待办事项");
+            View view = LayoutInflater.from(this).inflate(R.layout.add_todo_item, null);
+            final EditText newItemContent = view.findViewById(R.id.item_title);
+            final EditText newItemNote = view.findViewById(R.id.item_note);
+            final EditText newItemDate = view.findViewById(R.id.item_date);
+            final EditText newItemTime = view.findViewById(R.id.item_time);
+
+            builder.setView(view);
+            builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    if(isLesson) {
+//                        DeadlineDataSource.in
+                    } else {
+                        TodoItem newTodoItem = new TodoItem(newItemContent.getText().toString(), folderId, newItemDate.getText().toString() + " " + newItemTime.getText().toString(), newItemNote.getText().toString(), false);
+                        TodoItemDataSource.insertTodoItem(getBaseContext(), newTodoItem);
+                        todoItems.add(newTodoItem);
+                    }
+                }
+            });
+            builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+
+                }
+            });
+            builder.show();
+        });
     }
 
     private void initTodoList() {
