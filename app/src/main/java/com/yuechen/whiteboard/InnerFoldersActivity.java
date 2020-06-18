@@ -57,10 +57,10 @@ public class InnerFoldersActivity extends AppCompatActivity implements CourseObs
     }
 
     private void initFolders() {
-        CourseDataSource.readCourses(getApplicationContext());
+        CourseDataSource.readCourses(this);
         courseList = (ArrayList<Course>) CourseDataSource.courses;
         if(CourseDataSource.courses.isEmpty()) {
-            CourseDataSource.fetchCourses(getApplicationContext());
+            CourseDataSource.fetchCourses(this);
         }
     }
 

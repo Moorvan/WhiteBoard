@@ -7,4 +7,14 @@ public class TodoItem {
     public String endDateTime;
     public String note;
     public boolean finished;
+
+    public TodoItem() {}
+
+    public TodoItem(String title, long folderID, String endDateTime, String note, boolean finished) {
+        this.title = title;
+        this.folderID = folderID;
+        this.endDateTime = endDateTime;
+        this.note = note;
+        this.finished = finished;
+    }
 }
