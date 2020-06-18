@@ -33,7 +33,8 @@ public class ToDoItemAdapter extends RecyclerView.Adapter<ToDoItemAdapter.ViewHo
             todoListDateView = todoListView.findViewById(R.id.deadline_date);
             todoListTimeView = todoListView.findViewById(R.id.deadline_time);
             todoListContentView = todoListView.findViewById(R.id.deadline_content);
-            todoListNoteView = todoListView.findViewById(R.id.deadline_check);
+            todoListNoteView = todoListView.findViewById(R.id.deadline_note);
+            todoListCheckView = todoListView.findViewById(R.id.deadline_check);
         }
     }
 
