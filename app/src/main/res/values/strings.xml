@@ -5,4 +5,5 @@
     <string name="hint_login_password">输入密码</string>
     <string name="login">保存</string>
     <string name="new_item">新分类：</string>
+    <string name="change_note">修改备注：</string>
 </resources>
