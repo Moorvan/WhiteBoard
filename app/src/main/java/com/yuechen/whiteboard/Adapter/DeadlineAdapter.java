@@ -15,6 +15,7 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.github.chengang.library.TickView;
+import com.google.android.material.card.MaterialCardView;
 import com.yuechen.whiteboard.DataSource.DeadlineDataSource;
 import com.yuechen.whiteboard.Model.Deadline;
 import com.yuechen.whiteboard.R;
@@ -34,7 +35,7 @@ public class DeadlineAdapter extends RecyclerView.Adapter<DeadlineAdapter.ViewHo
         TextView deadlineContentView;
         TextView deadlineNoteView;
         TickView deadlineCheckView;
-        CardView deadlineCardView;
+        MaterialCardView deadlineCardView;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
