@@ -31,6 +31,7 @@ import com.yuechen.whiteboard.DataSource.TodoItemDataSource;
 import com.yuechen.whiteboard.Model.Deadline;
 import com.yuechen.whiteboard.Model.TodoItem;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -104,7 +105,8 @@ public class TodoListActivity extends AppCompatActivity implements DeadlineObser
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     if(isLesson) {
-                        // TODO 等数据
+                        DeadlineDataSource.insertDeadline(getBaseContext(), courseId, newItemContent.getText().toString(), newItemDate.getText().toString() + " " + newItemTime.getText().toString(), newItemNote.getText().toString());
+                        initTodoList();
                     } else {
                         TodoItem newTodoItem = new TodoItem(newItemContent.getText().toString(), folderId, newItemDate.getText().toString() + " " + newItemTime.getText().toString(), newItemNote.getText().toString(), false);
                         TodoItemDataSource.insertTodoItem(getBaseContext(), newTodoItem);
