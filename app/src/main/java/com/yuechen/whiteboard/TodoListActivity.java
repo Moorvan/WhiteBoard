@@ -5,12 +5,15 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
-import android.app.Application;
 import android.os.Bundle;
 import android.util.Log;
 
+<<<<<<< HEAD
+import com.yuechen.whiteboard.Adapter.DeadlineAdapter;
+=======
 import com.yuechen.whiteboard.Adapter.ToDoItemAdapter;
 import com.yuechen.whiteboard.adapter.DeadlineAdapter;
+>>>>>>> 5236cde7bf6b8b501d60bce1d3e162698a2b4e3d
 import com.yuechen.whiteboard.DataSource.DeadlineDataSource;
 import com.yuechen.whiteboard.DataSource.DeadlineObserver;
 import com.yuechen.whiteboard.Model.Deadline;
