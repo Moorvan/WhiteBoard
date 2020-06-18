@@ -1,10 +1,12 @@
 package com.yuechen.whiteboard.Adapter;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -54,14 +56,45 @@ public class ToDoItemAdapter extends RecyclerView.Adapter<ToDoItemAdapter.ViewHo
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.todo_item_layout, parent, false);
         final ViewHolder holder = new ViewHolder(view);
+        holder.todoListCardView.setOnClickListener((v) -> {
+            int position = holder.getAdapterPosition();
+            TodoItem item = todoItems.get(position);
+            View vw = LayoutInflater.from(context).inflate(R.layout.add_todo_item, parent, false);
+            EditText editTitle = vw.findViewById(R.id.item_title);
+            EditText editNote = vw.findViewById(R.id.item_note);
+            EditText editDate = vw.findViewById(R.id.item_date);
+            EditText editTime = vw.findViewById(R.id.item_time);
+            editTitle.setText(item.title);
+            editNote.setText(item.note);
+            editDate.setText(item.endDateTime.substring(0, 10));
+            editTime.setText(item.endDateTime.substring(11, 16));
+            AlertDialog.Builder builder = new AlertDialog.Builder(context);
+            builder.setView(vw);
+            builder.setTitle("修改待办事项");
+            builder.setPositiveButton("确定", (dialog, which) -> {
+                String title = editTitle.getText().toString();
+                String note = editNote.getText().toString();
+                String dateTime = editDate.getText().toString() + " " + editTime.getText().toString();
+                item.title = title;
+                item.note = note;
+                item.endDateTime = dateTime;
+                TodoItemDataSource.updateDeadline(context, item._id, item.title,
+                        item.folderID, item.endDateTime, item.note, item.finished);
+                notifyDataSetChanged();
+            });
+            builder.setNegativeButton("取消", (dialog, which) -> {});
+            builder.show();
+        });
         holder.todoListCheckView.setOnCheckedChangeListener((v, isChecked) -> {
             int position = holder.getAdapterPosition();
             TodoItem item = todoItems.get(position);
             item.finished = isChecked;
+            // TODO: 更新暂时有点问题
             long res = TodoItemDataSource.updateDeadline(context, item._id, item.finished);
             Log.d("todo", String.valueOf(res));
             notifyDataSetChanged();
         });
+
         return holder;
     }
 
