@@ -69,19 +69,6 @@ public class TodoListActivity extends AppCompatActivity implements DeadlineObser
     }
 
     private void initTodoList() {
-//        Deadline deadline = new Deadline();
-//        deadline.endDateTime = "2020-06-15 23:59:59";
-//        deadline.title = "编译原理";
-//        deadline.note = "尽快保质保量完成";
-//        deadline.finished = false;
-//        Deadline deadline1 = new Deadline();
-//        deadline1.endDateTime = "2020-06-16 23:59:59";
-//        deadline1.title = "Android";
-//        deadline1.note = "快交";
-//        deadline1.finished = true;
-//        deadlines = new ArrayList<>();
-//        deadlines.add(deadline);
-//        deadlines.add(deadline1);
         if (isLesson) {
             if (firstRead) {
                 DeadlineDataSource.readDeadlines(getApplicationContext());
