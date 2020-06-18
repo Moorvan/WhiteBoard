@@ -60,6 +60,7 @@
             android:layout_marginStart="5dp"
             android:layout_width="220dp"
             android:layout_height="wrap_content"
+            android:hint="yyyy-MM-dd"
             />
     </LinearLayout>
 
@@ -80,6 +81,7 @@
             android:layout_marginStart="5dp"
             android:layout_width="220dp"
             android:layout_height="wrap_content"
+            android:hint="HH:mm"
             />
     </LinearLayout>
 
