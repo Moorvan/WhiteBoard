@@ -68,7 +68,7 @@ public class TodoItemDbHelper extends SQLiteOpenHelper {
      *
      * @return
      */
-    public Map<Long, List<TodoItem>> readTodoItems() {
+    public List<TodoItem> readTodoItems() {
         SQLiteDatabase db = getWritableDatabase();
 
         String[] projection = {
@@ -89,7 +89,7 @@ public class TodoItemDbHelper extends SQLiteOpenHelper {
                 null
         );
 
-        Map<Long, List<TodoItem>> todoItems = new HashMap<>();
+        List<TodoItem> todoItems = new ArrayList<>();
         while (cursor.moveToNext()) {
             TodoItem todoItem = new TodoItem();
             todoItem.title = cursor.getString(cursor.getColumnIndexOrThrow(TodoItemEntry.COLUMN_NAME_TITLE));
@@ -98,11 +98,7 @@ public class TodoItemDbHelper extends SQLiteOpenHelper {
             todoItem.note = cursor.getString(cursor.getColumnIndexOrThrow(TodoItemEntry.COLUMN_NAME_NOTE));
             todoItem.finished = cursor.getInt(cursor.getColumnIndexOrThrow(TodoItemEntry.COLUMN_NAME_FINISHED)) > 0;
 
-            if (!todoItems.containsKey(todoItem.folderID)) {
-                todoItems.put(todoItem.folderID, new ArrayList<>());
-            }
-
-            todoItems.get(todoItem.folderID).add(todoItem);
+            todoItems.add(todoItem);
         }
         cursor.close();
         return todoItems;
