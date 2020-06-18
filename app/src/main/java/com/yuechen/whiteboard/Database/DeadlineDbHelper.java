@@ -164,4 +164,18 @@ public class DeadlineDbHelper extends SQLiteOpenHelper {
 
         return count;
     }
+
+    public long deleteDeadline(String id) {
+        SQLiteDatabase db = getWritableDatabase();
+
+        // Which row to update, based on the id
+        String selection = DeadlineEntry.COLUMN_NAME_ID + " = ? ";
+        String[] selectionArgs = {id};
+
+        long count = db.delete(DeadlineEntry.TABLE_NAME,
+                selection,
+                selectionArgs);
+
+        return count;
+    }
 }

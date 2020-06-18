@@ -145,7 +145,7 @@ public class AccountFragment extends Fragment implements View.OnClickListener, L
                     flag = false;
                 } else {
                     mPasswordEditText.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
-                    mShowPasswordImageView.setImageResource(R.drawable.ic_pass_visuable);
+                    mShowPasswordImageView.setImageResource(R.drawable.ic_pass_visable);
                     flag = true;
                 }
                 String pwd = mPasswordEditText.getText().toString();

@@ -96,7 +96,7 @@ public class DeadlineAdapter extends RecyclerView.Adapter<DeadlineAdapter.ViewHo
                     .setPositiveButton("确定", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-//                            DeadlineDataSource.de
+                            DeadlineDataSource.deleteDeadline(context, deadline.id);
                             deadlines.remove(deadline);
                             notifyDataSetChanged();
                         }
