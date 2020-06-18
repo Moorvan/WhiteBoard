@@ -104,7 +104,7 @@ public class TodoListActivity extends AppCompatActivity implements DeadlineObser
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     if(isLesson) {
-//                        DeadlineDataSource.in
+                        // TODO 等数据
                     } else {
                         TodoItem newTodoItem = new TodoItem(newItemContent.getText().toString(), folderId, newItemDate.getText().toString() + " " + newItemTime.getText().toString(), newItemNote.getText().toString(), false);
                         TodoItemDataSource.insertTodoItem(getBaseContext(), newTodoItem);
