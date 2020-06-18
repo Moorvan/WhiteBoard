@@ -137,6 +137,15 @@ public class TodoListActivity extends AppCompatActivity implements DeadlineObser
             deadlineAdapter = new DeadlineAdapter(deadlines, this);
             todoListView.setAdapter(deadlineAdapter);
             DeadlineDataSource.fetchNewDeadlines(this);
+        } else {
+            TodoItemDataSource.readTodoItems(this);
+            List<TodoItem> readTodoItems = TodoItemDataSource.todoItemsMap.get(folderId);
+            todoItems = new ArrayList<>();
+            if (readTodoItems != null) {
+                todoItems.addAll(readTodoItems);
+            }
+            toDoItemAdapter = new ToDoItemAdapter(todoItems, this);
+            todoListView.setAdapter(toDoItemAdapter);
         }
     }
 
