@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Color;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,7 +43,7 @@ public class ToDoItemAdapter extends RecyclerView.Adapter<ToDoItemAdapter.ViewHo
             todoListContentView = todoListView.findViewById(R.id.deadline_content);
             todoListNoteView = todoListView.findViewById(R.id.deadline_note);
             todoListCheckView = todoListView.findViewById(R.id.deadline_check);
-            todoListCardView = todoListView.findViewById(R.id.todo_item_card);
+            todoListCardView = todoListView.findViewById(R.id.deadline_card);
         }
     }
 
@@ -82,6 +83,14 @@ public class ToDoItemAdapter extends RecyclerView.Adapter<ToDoItemAdapter.ViewHo
             return true;
         });
 
+        holder.todoListCheckView.setOnCheckedChangeListener((v, isChecked) -> {
+            int position = holder.getAdapterPosition();
+            TodoItem item = todoItems.get(position);
+            item.finished = isChecked;
+            long res = TodoItemDataSource.updateDeadline(context, item._id, item.finished);
+            Log.d("todo", String.valueOf(res));
+            notifyDataSetChanged();
+        });
         return holder;
     }
 
