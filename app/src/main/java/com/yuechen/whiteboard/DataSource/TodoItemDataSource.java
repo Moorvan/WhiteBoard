@@ -74,6 +74,6 @@ public class TodoItemDataSource {
         todoItems.remove(todoItem);
         todoItemsMap.get(todoItem.folderID).remove(todoItem);
         TodoItemDbHelper dbHelper = new TodoItemDbHelper(context);
-        dbHelper.removeTodoItem(todoItem);
+        dbHelper.deleteTodoItem(todoItem);
     }
 }

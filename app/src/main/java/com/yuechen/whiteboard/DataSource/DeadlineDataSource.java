@@ -2,15 +2,12 @@ package com.yuechen.whiteboard.DataSource;
 
 import android.content.Context;
 
-import androidx.annotation.Nullable;
-
 import com.yuechen.whiteboard.Database.DeadlineDbHelper;
-import com.yuechen.whiteboard.Database.FolderDbHelper;
 import com.yuechen.whiteboard.Model.Deadline;
-import com.yuechen.whiteboard.Model.Folder;
 import com.yuechen.whiteboard.Network.EcnuNetworkService;
 import com.yuechen.whiteboard.Network.ResultEntity;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -40,7 +37,7 @@ public class DeadlineDataSource {
         for (Deadline deadline : dbHelper.readDeadlines()) {
             deadlines.add(deadline);
             deadlineIdMap.put(deadline.id, deadline);
-            if(!deadlineCourseMap.containsKey(deadline.calendarID.substring(0, 17))) {
+            if (!deadlineCourseMap.containsKey(deadline.calendarID.substring(0, 17))) {
                 deadlineCourseMap.put(deadline.calendarID.substring(0, 17), new ArrayList<>());
             }
             deadlineCourseMap.get(deadline.calendarID.substring(0, 17)).add(deadline);
@@ -77,7 +74,7 @@ public class DeadlineDataSource {
                             newDeadlines.add(fetchedDeadline);
                             deadlines.add(fetchedDeadline);
                             deadlineIdMap.put(fetchedDeadline.id, fetchedDeadline);
-                            if(!deadlineCourseMap.containsKey(fetchedDeadline.calendarID.substring(0, 17))) {
+                            if (!deadlineCourseMap.containsKey(fetchedDeadline.calendarID.substring(0, 17))) {
                                 deadlineCourseMap.put(fetchedDeadline.calendarID.substring(0, 17), new ArrayList<>());
                             }
                             deadlineCourseMap.get(fetchedDeadline.calendarID.substring(0, 17)).add(fetchedDeadline);
@@ -99,6 +96,23 @@ public class DeadlineDataSource {
         };
 
         call.enqueue(callback);
+    }
+
+    public static long insertDeadline(Context context, String courseId, String title, String endDateTime, String note) {
+        DeadlineDbHelper dbHelper = new DeadlineDbHelper(context);
+        Deadline deadline = new Deadline();
+        deadline.id = LocalDateTime.now().toString();
+        deadline.calendarID = courseId;
+        deadline.title = title;
+        deadline.endDateTime = endDateTime;
+        deadline.note = note;
+        deadlines.add(deadline);
+        deadlineIdMap.put(deadline.id, deadline);
+        if (!deadlineCourseMap.containsKey(deadline.calendarID.substring(0, 17))) {
+            deadlineCourseMap.put(deadline.calendarID.substring(0, 17), new ArrayList<>());
+        }
+        deadlineCourseMap.get(deadline.calendarID.substring(0, 17)).add(deadline);
+        return dbHelper.insertDeadline(deadline);
     }
 
     public static long updateDeadline(Context context, String id, boolean finished) {
@@ -126,5 +140,18 @@ public class DeadlineDataSource {
         }
 
         return -1;
+    }
+
+    public static void deleteDeadline(Context context, String id) {
+        for (Deadline deadline : deadlines) {
+            if (deadline.id == id) {
+                deadlines.remove(deadline);
+                deadlineCourseMap.get(deadline.calendarID.substring(0, 17)).remove(deadline);
+                deadlineIdMap.remove(deadline.id);
+
+                DeadlineDbHelper dbHelper = new DeadlineDbHelper(context);
+                dbHelper.deleteDeadline(id);
+            }
+        }
     }
 }

@@ -150,7 +150,7 @@ public class TodoItemDbHelper extends SQLiteOpenHelper {
         return count;
     }
 
-    public long removeTodoItem(TodoItem todoItem) {
+    public long deleteTodoItem(TodoItem todoItem) {
         SQLiteDatabase db = getWritableDatabase();
 
         // Which row to update, based on the id
