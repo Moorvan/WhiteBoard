@@ -190,10 +190,10 @@ public class CalendarFragment extends Fragment
         if (month == 1) {
             year = current.getYear() - 1;
             semesterIndex = 1;
-        } else if (2 <= month && month <= 6) {
+        } else if (2 <= month && month <= 7) {
             year = current.getYear() - 1;
             semesterIndex = 2;
-        } else if (7 <= month && month <= 8) {
+        } else if (month <= 8) {
             year = current.getYear() - 1;
             semesterIndex = 3;
         } else {
