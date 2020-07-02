@@ -28,6 +28,7 @@ import java.time.LocalDate;
 import java.time.Year;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -235,7 +236,7 @@ public class CalendarFragment extends Fragment
         Log.d("lessonsDuration", String.valueOf(duration));
         int weekDay = currentDate.getDayOfWeek().getValue() - 1;
         if (weekOffset >= 0 && weekOffset < 20 && weekDay >= 0 && weekDay < 5) {
-            lessons = LessonDataSource.lessonTable[weekOffset][weekDay];
+            lessons = new ArrayList<>(LessonDataSource.lessonTable[weekOffset][weekDay]) ;
             Log.d("lessons", LessonDataSource.lessonTable[weekOffset][weekDay].toString());
             lessons.sort((l1, l2) ->
                     (Integer.compare(l1.startTimeOffset, l2.startTimeOffset))
